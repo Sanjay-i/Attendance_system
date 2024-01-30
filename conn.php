@@ -1,6 +1,15 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'a_system');
+class DB
+{
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    function connection()
+    {
+        $con = mysqli_connect('localhost', 'root', '', 'a_system');
+        if (!$con) {
+            die('connection error' . mysqli_connect_error());
+        }
+        return $con;
+    }
 }
+$obj = new DB();
+$obj->connection();
