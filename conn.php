@@ -1,10 +1,9 @@
 <?php
 class DB
 {
-
     function connection()
     {
-        $con = mysqli_connect('localhost', 'root', '', 'a_system');
+        $con = mysqli_connect('localhost', 'root', '', 'my_data');
         if (!$con) {
             die('connection error' . mysqli_connect_error());
         }
@@ -12,4 +11,4 @@ class DB
     }
 }
 $obj = new DB();
-$obj->connection();
+$data = $obj->connection();

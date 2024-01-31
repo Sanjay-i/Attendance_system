@@ -6,7 +6,7 @@
     <style>
         .container {
             width: 500px;
-            background-color: orange;
+            background-color: green;
             padding: 20px;
             margin: auto;
         }
@@ -75,11 +75,11 @@
 
 <body>
     <div class="container">
-        <form action="dahsboard.php" onsubmit="return checkUserExist ();">
+        <form action="dashboard.php" onsubmit="return Checkuserexist();">
             <div class="login">
                 <div class="heading">Login</div>
-                <div><input type="email" name="username" placeholder="E-mail" autocomplete="off" required="" /></div>
-                <div><input type="password" name="userpassword" placeholder="Password" autocomplete="off" required="" /></div>
+                <div><input type="email" id="useremail" name="username" placeholder="Email" autocomplete="off" required="" /></div>
+                <div><input type="password" id="userpassword" name="userpassword" placeholder="Password" autocomplete="off" required="" /></div>
                 <div><button name="login" id="login">Login</button></div>
             </div>
         </form>
