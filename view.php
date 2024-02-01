@@ -7,6 +7,7 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
     <head>
         <title>Dashboard</title>
         <link href="css/mystyle.css" rel="stylesheet" type="text/css" />
+
     </head>
 
     <body>
@@ -15,6 +16,7 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
                 <div class="heading">Dashboard</div>
                 <div class="alink"><a href="logout.php">Logout</a></div>
                 <div class="profile">
+                    <div>ID:<?= $_SESSION['user_id'] ?></div>
                     <div>Name:<?= $_SESSION['user_name'] ?></div>
                     <div>Email:<?= $_SESSION['user_email'] ?> </div>
                     <div><button class="check-in-btn">Check in </button></div>
