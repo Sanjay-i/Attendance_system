@@ -1,7 +1,4 @@
 <?php
-
-// <------------database connection ---------->
-
 class DB
 {
     function connection()

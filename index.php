@@ -6,33 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <style>
         body {
             background-color: blueviolet;
-        }
-
-        #form {
-            background-color: white;
-            width: 25%;
-            margin: 120px auto;
-            padding: 50px;
-            box-shadow: 10px 10px 5px rgb(82, 11, 77);
-            border-radius: 6px;
-        }
-
-        #btn {
-            color: white;
-            background-color: rgb(105, 15, 190);
-            padding: 10px;
-            font-size: large;
-            border-radius: 10px;
-        }
-
-        @media screen and (max-width: 700px) {
-            #form {
-                width: 65%;
-                padding: 40px;
-            }
         }
     </style>
 </head>

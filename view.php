@@ -2,6 +2,21 @@
 session_start();
 
 if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
+    include('database.php');
+
+    /*--------- display time when user click check-in check-out ---------> */
+
+    $userId = $_SESSION["user_id"];
+    $checkInTime = "";
+    $checkOutTime = "";
+    $query = "SELECT * FROM attendance WHERE userId = '$userId'";
+    $result1 = mysqli_query($data, $query);
+    if (mysqli_num_rows($result1) > 0) {
+        $row = mysqli_fetch_assoc($result1);
+
+        $checkInTime = $row['checkIn'];
+        $checkOutTime = $row['checkOut'];
+    }
 ?>
     <html>
 
@@ -11,7 +26,7 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </head>
-    <!-------check in check-out page----->
+    <!-------check in check-out page -------------------------->
 
     <body>
         <div class="container">
@@ -23,8 +38,9 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
                     <div>Name:<?= $_SESSION['user_name'] ?></div>
                     <div>Email:<?= $_SESSION['user_email'] ?> </div>
                     <div><button onclick=checkIn() class="check-in-btn">Check in </button></div>
-                    <span id="time"> </span>
+                    <span id="checkin-time"> <?= $checkInTime; ?> </span>
                     <div><button onclick=checkOut() class="check-out-btn">Check out </button></div>
+                    <span id="checkout-time"> <?= $checkOutTime != '0000-00-00 00:00:00' ? $checkOutTime : ''; ?> </span>
                 </div>
             </div>
         </div>
@@ -43,11 +59,10 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
                 },
                 success: function(data) {
                     let decodeData = JSON.parse(data);
-                    if (data.status == true) {
-                        alert("Checkin Successfully");
-                    } else {
-                        alert("already you checked in!!!");
+                    if (decodeData.status) {
+                        $("#checkin-time").html(decodeData.time);
                     }
+                    alert(decodeData.message);
                 }
             });
         }
@@ -65,11 +80,10 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
                 },
                 success: function(data) {
                     let decodeData = JSON.parse(data);
-                    if (data.status == true) {
-                        alert("Checkout Successfully");
-                    } else {
-                        alert("already you checkout !!!");
+                    if (decodeData.status) {
+                        $("#checkout-time").text(decodeData.time);
                     }
+                    alert(decodeData.message);
                 }
             });
 

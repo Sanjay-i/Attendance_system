@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['pass'];
     $num = $_POST['num'];
 
-    $result = mysqli_query($data, "insert into user value('','$name','$email','$pass','$num')");
+    $result = mysqli_query($data, "INSERT INTO user VALUES('','$name','$email','$pass','$num')");
 
     if ($result) {
         $query = "SELECT ID, Email,Password,Name FROM user WHERE Email='$email' and Password='$pass' and Name='$name'";

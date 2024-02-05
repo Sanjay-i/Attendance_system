@@ -2,7 +2,7 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
 
-include('conn.php');
+include('database.php');
 
 $result;
 if (isset($_POST['userId'])) {
@@ -22,7 +22,8 @@ if (isset($_POST['userId'])) {
             $rquery = mysqli_query($data, "INSERT INTO attendance(userId, checkIn) VALUES('$userId','$currentDateTime')");
             $result = array(
                 "status" => true,
-                "message" => 'CheckIn Successfully'
+                "message" => 'CheckIn Successfully',
+                'time' => $currentDateTime
             );
         }
     } else {
@@ -38,7 +39,8 @@ if (isset($_POST['userId'])) {
             $rquery = mysqli_query($data, "UPDATE attendance SET checkOut = '$currentDateTime' WHERE userId = '$userId' ");
             $result = array(
                 "status" => true,
-                "message" => 'Checkout Successfully'
+                "message" => 'Checkout Successfully',
+                'time' => $currentDateTime
             );
         }
     }
