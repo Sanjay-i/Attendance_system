@@ -8,12 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Attrndance | Dashboard</title>
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+
+    <!------------ added header portion --------------->
+    <?php
+    include("header.php");
+    ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
             <ul class="navbar-nav">
@@ -27,7 +30,6 @@
 
                 </div>
             </form>
-
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -51,7 +53,7 @@
             </ul>
         </nav>
 
-        <!---------------------------- ----------------------------->
+        <!----------------------------side menubare options   ----------------------------->
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: #222d32;">
 
@@ -72,7 +74,6 @@
                                 </p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="nav-icon far fa-calendar-alt"></i>
@@ -106,25 +107,10 @@
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-sticky-note"></i>
-                                <p>
-                                    time
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
                                     Positions
                                 </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-money-bill-alt"></i>
-                                <p>access</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -162,12 +148,13 @@
                 </div>
             </div>
 
+            <!------------ display the home page options ---------------------->
+
             <section class="content">
                 <div class="container-fluid">
-
                     <div class="row">
-                        <div class="col-lg-3 col-6">
 
+                        <div class="col-lg-3 col-6">
                             <div class="small-box bg-dark">
                                 <div class="inner">
                                     <p>Employee / Staff</p>
@@ -178,3 +165,58 @@
                                 <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                    <p>Total Positions</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                    <p>On Time Today</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                    <p>Late Today</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <section class="col-lg-5 connectedSortable">
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div>
+            <p class="footer_copy " style="text-align: center;"><?php echo "20" . date("y"); ?> © <a href="https://developerrony.com"> welcome</a>. All right reserved by <a href="">sanjay</a> </p>
+
+        </div>
+        <!------------------ added footer portion --------------------->
+        <?php
+        include("footer.php");
+        ?>
+        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="plugins/datatables/jquery.dataTables.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+</body>
+
+</html>
