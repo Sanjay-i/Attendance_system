@@ -10,7 +10,7 @@ if (isset($_POST['userId'])) {
     $checkIn = $_POST['checkIn'];
     $currentDateTime = date('Y-m-d H:i:s');
 
-    // <--------------------------select only current date and time ----------------->
+    // <--------------------------------select only current date and time ----------------->
 
     if ($checkIn == 'true') {
         $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND DATE(checkIn) = CURDATE()";
