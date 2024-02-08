@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Attrndance | Dashboard</title>
+    <title>Employee Attrndance | Home page </title>
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 
     <!------------------- added header portion ---------------------->
@@ -75,6 +75,7 @@
                                     Attendance
                                 </p>
                             </a>
+
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -84,43 +85,51 @@
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Schedules</p>
-                                    </a>
-                                </li>
+                            <ul>
+                                <li><a href="">Employee List</a></li>
+                                <li><a href="">Schedules</a></li>
+
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-briefcase"></i>
-                                <p>
-                                    Leave Section
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-briefcase"></i>
-                                <p>
-                                    checkIn-checkOut
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon far fa-clock"></i>
-                                <p>Schedules</p>
-                            </a>
-                        </li>
+                    </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-briefcase"></i>
+                            <p>
+                                Leave Type
+                            </p>
+                        </a>
+                        <ul>
+                            <li><a href="">Add Leave Type</a></li>
+                            <li><a href="">Manage Leave Type</a></li>
+
+                        </ul>
+
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-briefcase"></i>
+                            <p>
+                                Leave Management
+                            </p>
+                        </a>
+                        <ul>
+                            <li><a href="">All Leaves</a></li>
+                            <li><a href="">Pending Leaves</a></li>
+                            <li><a href="">Approved Leaves</a></li>
+                            <li><a href="">Not approved Leaves</a></li>
+                        </ul>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon far fa-clock"></i>
+                            <p>Schedules</p>
+                        </a>
+                    </li>
                     </ul>
                 </nav>
 
@@ -132,7 +141,7 @@
         <div class="content-wrapper">
             <div class="content-header">
                 <div style="padding-top: 10px;">
-                    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> <a href="https://www.youtube.com/@codecampbdofficial">TAFFINC</a> Employee Attendance system our company <a href="https://www.youtube.com/@codecampbdofficial">TAFFINC</a>. For any of your problems contact us on <a href="https://www.youtube.com/@codecampbdofficial">Welcome</a>sanjay/ page or message <a href="https://www.facebook.com/dev.mhrony">TAFF</a> on sanjay. Thanks <a href="https://www.youtube.com/@codecampbdofficial">sanjay</a>.</marquee>
+                    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee>
                 </div>
                 <div class="container-fluid">
                     <div class="row mb-2">

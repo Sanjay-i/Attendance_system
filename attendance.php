@@ -9,8 +9,11 @@ if (isset($_POST['userId'])) {
     $userId = $_POST['userId'];
     $checkIn = $_POST['checkIn'];
     $currentDateTime = date('Y-m-d H:i:s');
+
+    // <--------------------------select only current date and time ----------------->
+
     if ($checkIn == 'true') {
-        $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND checkIn != '0000-00-00 00:00:00'";
+        $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND DATE(checkIn) = CURDATE()";
         $result1 = mysqli_query($data, $query);
 
         if (mysqli_num_rows($result1) > 0) {
@@ -26,8 +29,9 @@ if (isset($_POST['userId'])) {
                 'time' => $currentDateTime
             );
         }
+        //<------------------ old data display message already check in and out ----------->     
     } else {
-        $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND checkOut != '0000-00-00 00:00:00'";
+        $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND DATE(checkOut) = CURDATE()";
         $result1 = mysqli_query($data, $query);
 
         if (mysqli_num_rows($result1) > 0) {
