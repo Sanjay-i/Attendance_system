@@ -40,7 +40,19 @@ if (isset($_POST['userId'])) {
                 "message" => 'Already checked out'
             );
         } else {
-            $rquery = mysqli_query($data, "UPDATE attendance SET checkOut = '$currentDateTime' WHERE userId = '$userId' ");
+            $getQuery = "SELECT checkIn, userId FROM attendance WHERE userId = '$userId' AND DATE(checkIn) = CURDATE()";
+            $getResult = mysqli_query($data, $getQuery);
+            $getRow = mysqli_fetch_assoc($getResult);
+            $checkIn = new DateTime($getRow['checkIn']);
+            $checkOut = new DateTime($currentDateTime);
+
+            // Calculate the difference between check-in and check-out times
+            $difference = date_diff($checkIn, $checkOut);
+
+            // Format the difference as hours and minutes
+            $totalHours = $difference->format('%h hours %i minutes %s seconds');
+
+            $rquery = mysqli_query($data, "UPDATE attendance SET checkOut = '$currentDateTime', total_hours = '$totalHours' WHERE userId = '$userId' ");
             $result = array(
                 "status" => true,
                 "message" => 'Checkout Successfully',
