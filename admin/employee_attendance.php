@@ -93,7 +93,7 @@ include('../database.php');
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="employee.php" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Employees
@@ -117,10 +117,18 @@ include('../database.php');
                         </li>
 
                         <li class="nav-item">
-                            <a href="employee_positions.php" class="nav-link">
+                            <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Positions
+                                    Leave Type
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="leave_list.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    Leave Management
                                 </p>
                             </a>
                         </li>
@@ -141,7 +149,7 @@ include('../database.php');
 
             <div class="content-header">
                 <div style="padding-top: 10px;">
-                    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> <a href="https://www.youtube.com/@codecampbdofficial">My Company</a>Employee Attendance data <a href="https://www.youtube.com/@codecampbdofficial">My company</a>. For any of your problems contact us on <a href="https://www.youtube.com/@codecampbdofficial">My company</a> facebook group / page or message <a href="https://www.facebook.com/dev.mhrony">sanjay</a> Bye. Thanks <a href="https://www.youtube.com/@codecampbdofficial">My company</a>.</marquee>
+                    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee>
                 </div>
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -173,6 +181,7 @@ include('../database.php');
                                             <th>Name</th>
                                             <th>Time In</th>
                                             <th>Time Out</th>
+                                            <th>Total Hours</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -192,6 +201,7 @@ include('../database.php');
                                                 <td><?php echo $row['Name']; ?></td>
                                                 <td><?php echo $row['checkIn']; ?> <span class="float-right badge bg-success">On Time</span></td>
                                                 <td><?php echo $row['checkOut']; ?></td>
+                                                <td><?php echo $row['total_hours']; ?></td>
                                             </tr>
                                         <?php
                                         }

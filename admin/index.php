@@ -1,5 +1,7 @@
 <?php
 
+include('../database.php');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,6 +46,36 @@
 </head>
 
 <body class="hold-transition login-page">
+    <?php
+    if (isset($_POST['Sign_in'])) {
+        $email = $_POST['log_useremail'];
+        $password = $_POST['log_password'];
+
+        $query = "SELECT * FROM admin WHERE email = '$email' and password = '$password'";
+        $resquery = mysqli_query($data, $query);
+
+        if (!$row = $resquery->fetch_assoc()) {
+            echo '<script>
+                     setTimeout(function() {
+                         Swal.fire({
+                             title: "Failed !",
+                             text: "Useremail or Password is incorrect !",
+                             type: "error"
+                           }).then(function() {
+                               window.location = "index.php";
+                           });
+                     }, 30);
+                 </script>';
+        } else {
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['useremail'] = $row['useremail'];
+
+            header("Location: home.php");
+        }
+    }
+
+    ?>
+
     <div class="login-box">
         <div class="login-logo">
             <p class="bold">Admin Login</p>
@@ -56,7 +88,7 @@
                 <form method="POST">
 
                     <div class="input-group mb-3">
-                        <input type="text" name="log_username" class="form-control" placeholder="Username">
+                        <input type="email" name="log_useremail" class="form-control" placeholder="Useremail">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
