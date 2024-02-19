@@ -35,8 +35,9 @@ include('../database.php');
         $pass = md5($_POST['emp_password']);
         $email = $_POST['emp_email'];
         $contact = $_POST['emp_contact'];
+        $is_admin = $_POST['is_admin'];
 
-        $query = "INSERT INTO user(name, email, password, mobile_number) VALUES ('$name','$email','$pass','$contact')";
+        $query = "INSERT INTO user(name, email, password, mobile_number, is_admin) VALUES ('$name','$email','$pass','$contact', $is_admin)";
         $resquery = mysqli_query($data, $query);
 
         echo '<script>
@@ -131,20 +132,7 @@ include('../database.php');
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Schedules</p>
-                                    </a>
-                                </li>
-                            </ul>
+
                         </li>
 
                         <li class="nav-item">
@@ -156,19 +144,22 @@ include('../database.php');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="leave_list.php" class="nav-link">
+                            <a href="department.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Management
+                                    department
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon far fa-clock"></i>
-                                <p>Schedules</p>
+                            <a href="leave_list.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    Leave
+                                </p>
                             </a>
                         </li>
+
                     </ul>
                 </nav>
 
@@ -317,10 +308,10 @@ include('../database.php');
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Admin</label>
                             <div class="col-sm-7">
-                                <select name="department" class="form-control" required>
-                                    <option> yes</option>
+                                <select name="is_admin" class="form-control" required>
+                                    <option value="1"> yes</option>
 
-                                    <option> no</option>
+                                    <option value="0"> no</option>
 
                                 </select>
                             </div>

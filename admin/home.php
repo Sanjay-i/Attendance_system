@@ -43,7 +43,7 @@
 
                         <!----------------------------home page side menubare options ------------------------------->
                         <form method="POST">
-                            <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
+                            <a href="logout.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -111,12 +111,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon far fa-clock"></i>
-                                <p>Schedules</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
             </div>

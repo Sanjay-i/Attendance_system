@@ -125,6 +125,14 @@ include('../database.php');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="department.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    department
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="leave_list.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
@@ -132,12 +140,7 @@ include('../database.php');
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="print_sched.php" class="nav-link">
-                                <i class="nav-icon far fa-clock"></i>
-                                <p>Schedules</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
 

@@ -123,20 +123,7 @@ include('../database.php');
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="employee_list.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="employee_sched.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Schedules</p>
-                                    </a>
-                                </li>
-                            </ul>
+
                         </li>
 
                         <li class="nav-item">
@@ -148,10 +135,10 @@ include('../database.php');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="leave.php" class="nav-link">
+                            <a href="department.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    departmment master
+                                    department
                                 </p>
                             </a>
                         </li>
@@ -159,16 +146,11 @@ include('../database.php');
                             <a href="leave_list.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Management
+                                    Leave
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="print_sched.php" class="nav-link">
-                                <i class="nav-icon far fa-clock"></i>
-                                <p>Schedules</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </nav>
 

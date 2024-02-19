@@ -47,13 +47,14 @@ include('../database.php');
 
 <body class="hold-transition login-page">
     <?php
+    print_r($_POST);
     if (isset($_POST['Sign_in'])) {
         $email = $_POST['log_email'];
         $password = md5($_POST['log_password']);
 
         $query = "SELECT * FROM user WHERE email = '$email' and password = '$password' and is_admin = 1";
         $resquery = mysqli_query($data, $query);
-
+        echo  $query;
         if (!$row = $resquery->fetch_assoc()) {
             echo '<script>
                      setTimeout(function() {
