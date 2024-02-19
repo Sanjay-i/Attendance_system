@@ -2,6 +2,8 @@
 
 include('../database.php');
 
+include('../database.php');
+
 ?>
 <!DOCTYPE html>
 <html>

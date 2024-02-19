@@ -2,6 +2,10 @@
 include('../database.php');
 
 ?>
+<?php
+include('../database.php');
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -199,7 +203,10 @@ include('../database.php');
                                         <tr>
                                             <th>Employee ID</th>
 
+
                                             <th>Name</th>
+                                            <th>Password</th>
+                                            <th>contact</th>
                                             <th>Password</th>
                                             <th>contact</th>
                                             <th>Tools</th>
@@ -254,7 +261,7 @@ include('../database.php');
                 <div class="modal-body">
                     <form method="POST" enctype="multipart/form-data">
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Name</label>
                             <div class="col-sm-7">
@@ -265,14 +272,18 @@ include('../database.php');
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Password</label>
+                            <label class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-7">
+                                <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
                                 <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Email</label>
+                            <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-7">
+                                <input type="email" class="form-control" name="emp_email" placeholder="Enter Password" required>
                                 <input type="email" class="form-control" name="emp_email" placeholder="Enter Password" required>
                             </div>
                         </div>
@@ -280,6 +291,7 @@ include('../database.php');
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Contact</label>
                             <label class="col-sm-3 col-form-label">Contact</label>
                             <div class="col-sm-7">
                                 <input type="number" class="form-control" name="emp_contact" placeholder="Enter Contact Number" required>
@@ -325,57 +337,57 @@ include('../database.php');
                 </div>
             </div>
             <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-
-
-    <div id="emp_edit_modal" class="modal fade">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editing...</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
                 </div>
+                <!-- /.modal-dialog -->
+            </div>
 
 
-                <form method="POST">
-                    <div class="modal-body" id="emp_edit_details">
+            <div id="emp_edit_modal" class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Editing...</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+
+
+                        <form method="POST">
+                            <div class="modal-body" id="emp_edit_details">
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                                <button type="submit" class="btn btn-primary btn-flat" name="emp_update"><i class="fas fa-check"></i> Update</button>
+                        </form>
                     </div>
-                    <div class="modal-body"></div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                        <button type="submit" class="btn btn-primary btn-flat" name="emp_update"><i class="fas fa-check"></i> Update</button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
 
 
 
-    <div id="emp_delete_modal" class="modal fade">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Deleting...</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form method="POST">
-                    <div class="modal-body" id="emp_delete_details">
+        <div id="emp_delete_modal" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deleting...</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
-                    <div class="modal-body"></div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                        <button type="submit" class="btn btn-danger btn-flat" name="emp_delete"><i class="fas fa-trash"></i> Delete</button>
-                </form>
+                    <form method="POST">
+                        <div class="modal-body" id="emp_delete_details">
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                            <button type="submit" class="btn btn-danger btn-flat" name="emp_delete"><i class="fas fa-trash"></i> Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
 

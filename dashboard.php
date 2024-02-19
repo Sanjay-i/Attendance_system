@@ -63,7 +63,7 @@ if (isset($_SESSION['email'])) {
 
                             <!----------------------------home page side menubare options ------------------------------->
                             <form method="POST">
-                                <a href="logout.php"> <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
+                                <a href="logout.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                             </form>
                         </div>
                     </li>
