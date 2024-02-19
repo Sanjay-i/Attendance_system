@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
+// print_r($_SESSION);
+if (isset($_SESSION['user_password']) && isset($_SESSION['user_name'])) {
     include('database.php');
 
     /*--------- display time when user click check-in check-out ---------> */
@@ -9,13 +9,13 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
     $userId = $_SESSION["user_id"];
     $checkInTime = "";
     $checkOutTime = "";
-    $query = "SELECT * FROM attendance WHERE userId = '$userId'";
+    $query = "SELECT * FROM attendance WHERE userId = '$userId' AND DATE(checkIn) = CURDATE()";
     $result1 = mysqli_query($data, $query);
     if (mysqli_num_rows($result1) > 0) {
         $row = mysqli_fetch_assoc($result1);
 
-        $checkInTime = $row['checkIn'];
-        $checkOutTime = $row['checkOut'];
+        $checkInTime = $row['check_in'];
+        $checkOutTime = $row['check_out'];
     }
 ?>
     <html>
@@ -31,12 +31,12 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
     <body>
         <div class="container">
             <div class="login">
-                <div class="heading">Dashboard</div>
+                <div class="heading">checkIn-checkOut</div>
                 <div class="alink"><a href="logout.php">Logout</a></div>
                 <div class="profile">
                     <div>ID:<?= $_SESSION['user_id'] ?></div>
                     <div>Name:<?= $_SESSION['user_name'] ?></div>
-                    <div>Email:<?= $_SESSION['user_email'] ?> </div>
+                    <div>Password:<?= $_SESSION['user_password'] ?> </div>
                     <div><button onclick=checkIn() class="check-in-btn">Check in </button></div>
                     <span id="checkin-time"> <?= $checkInTime; ?> </span>
                     <div><button onclick=checkOut() class="check-out-btn">Check out </button></div>
@@ -55,7 +55,7 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
                 url: "attendance.php",
                 data: {
                     "userId": <?php echo $_SESSION['user_id']; ?>,
-                    "checkIn": true,
+                    "check_in": true,
                 },
                 success: function(data) {
                     let decodeData = JSON.parse(data);
@@ -76,7 +76,7 @@ if (isset($_SESSION['user_email']) && isset($_SESSION['user_name'])) {
                 url: "attendance.php",
                 data: {
                     "userId": <?php echo $_SESSION['user_id']; ?>,
-                    "checkIn": false
+                    "check_in": false
                 },
                 success: function(data) {
                     let decodeData = JSON.parse(data);

@@ -59,84 +59,68 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-flat nav-legacy nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+                        <!---------------- menu lists -------------->
 
                         <li class="nav-item">
-                            <a href="" class="nav-link active">
+                            <a href="home.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="employee_attendance.php" class="nav-link">
+
+                        <li class="nav-item active">
+                            <a href="employee_attendance.php" class="nav-link active">
                                 <i class="nav-icon far fa-calendar-alt"></i>
                                 <p>
                                     Attendance
                                 </p>
                             </a>
-
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="employee.php" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Employees
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul>
-                                <li><a href="">Employee List</a></li>
-                                <li><a href="">Schedules</a></li>
 
-                            </ul>
+                        <li class="nav-item">
+                            <a href="leave.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    Leave Type Master
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="department.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    department
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="leave_list.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    Leave
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="nav-icon far fa-clock"></i>
+                                <p>Schedules</p>
+                            </a>
                         </li>
                     </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="nav-icon fas fa-briefcase"></i>
-                            <p>
-                                Leave Type
-                            </p>
-                        </a>
-                        <ul>
-                            <li><a href="">Add Leave Type</a></li>
-                            <li><a href="">Manage Leave Type</a></li>
-
-                        </ul>
-
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="nav-icon fas fa-briefcase"></i>
-                            <p>
-                                Leave Management
-                            </p>
-                        </a>
-                        <ul>
-                            <li><a href="">All Leaves</a></li>
-                            <li><a href="">Pending Leaves</a></li>
-                            <li><a href="">Approved Leaves</a></li>
-                            <li><a href="">Not approved Leaves</a></li>
-                        </ul>
-
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="nav-icon far fa-clock"></i>
-                            <p>Schedules</p>
-                        </a>
-                    </li>
-                    </ul>
                 </nav>
-
             </div>
-
         </aside>
-
         <!---------------------------right side link options ----------------------------------------->
         <div class="content-wrapper">
             <div class="content-header">

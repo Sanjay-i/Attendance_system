@@ -1,9 +1,10 @@
 <?php
+
 session_start();
 //<---- destroyed  valuse ----------->
-unset($_SESSION['user_id']);
-unset($_SESSION['user_email']);
-unset($_SESSION['user_name']);
+$_SESSION['user_id'] = '';
+
+session_destroy();
 
 // echo "success";
-header('location:index.php');
+header('location:login.php');

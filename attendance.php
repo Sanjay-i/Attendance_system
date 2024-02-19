@@ -5,15 +5,15 @@ date_default_timezone_set('Asia/Kolkata');
 include('database.php');
 
 $result;
-if (isset($_POST['userId'])) {
-    $userId = $_POST['userId'];
-    $checkIn = $_POST['checkIn'];
+if (isset($_POST['user_id'])) {
+    $user_id = $_POST['user_id'];
+    $check_in = $_POST['check_in'];
     $currentDateTime = date('Y-m-d H:i:s');
 
     // <--------------------------------select only current date and time ----------------->
 
-    if ($checkIn == 'true') {
-        $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND DATE(checkIn) = CURDATE()";
+    if ($check_in == 'true') {
+        $query = "SELECT user_id FROM attendance WHERE user_id = '$user_id' AND DATE(check_in) = CURDATE()";
         $result1 = mysqli_query($data, $query);
 
         if (mysqli_num_rows($result1) > 0) {
@@ -22,7 +22,7 @@ if (isset($_POST['userId'])) {
                 "message" => 'Already checked in'
             );
         } else {
-            $rquery = mysqli_query($data, "INSERT INTO attendance(userId, checkIn) VALUES('$userId','$currentDateTime')");
+            $rquery = mysqli_query($data, "INSERT INTO attendance(user_id, check_in) VALUES('$user_id','$currentDateTime')");
             $result = array(
                 "status" => true,
                 "message" => 'CheckIn Successfully',
@@ -31,7 +31,7 @@ if (isset($_POST['userId'])) {
         }
         //<------------------ old data display message already check in and out ----------->     
     } else {
-        $query = "SELECT userId FROM attendance WHERE userId = '$userId' AND DATE(checkOut) = CURDATE()";
+        $query = "SELECT user_id FROM attendance WHERE user_id = '$user_id' AND DATE(check_out) = CURDATE()";
         $result1 = mysqli_query($data, $query);
 
         if (mysqli_num_rows($result1) > 0) {
@@ -40,19 +40,19 @@ if (isset($_POST['userId'])) {
                 "message" => 'Already checked out'
             );
         } else {
-            $getQuery = "SELECT checkIn, userId FROM attendance WHERE userId = '$userId' AND DATE(checkIn) = CURDATE()";
+            $getQuery = "SELECT check_in, user_id FROM attendance WHERE user_id = '$user_id' AND DATE(check_in) = CURDATE()";
             $getResult = mysqli_query($data, $getQuery);
             $getRow = mysqli_fetch_assoc($getResult);
-            $checkIn = new DateTime($getRow['checkIn']);
-            $checkOut = new DateTime($currentDateTime);
+            $check_in = new DateTime($getRow['check_in']);
+            $check_out = new DateTime($currentDateTime);
 
             // Calculate the difference between check-in and check-out times
-            $difference = date_diff($checkIn, $checkOut);
+            $difference = date_diff($check_in, $check_out);
 
             // Format the difference as hours and minutes
             $totalHours = $difference->format('%h hours %i minutes %s seconds');
 
-            $rquery = mysqli_query($data, "UPDATE attendance SET checkOut = '$currentDateTime', total_hours = '$totalHours' WHERE userId = '$userId' ");
+            $rquery = mysqli_query($data, "UPDATE attendance SET check_out = '$currentDateTime', total_hours = '$totalHours' WHERE user_id = '$user_id' ");
             $result = array(
                 "status" => true,
                 "message" => 'Checkout Successfully',

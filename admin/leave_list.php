@@ -10,7 +10,7 @@ include('../database.php');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>HR | Dashboard</title>
+    <title>Admin | Leave</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -27,6 +27,20 @@ include('../database.php');
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?php
+    if (isset($_GET['employee_id'])) {
+
+        $employee_id = $_GET['employee_id'];
+        $leave_status = $_GET['status'];
+
+        $query = "UPDATE `leave` SET leave_status = '$leave_status' WHERE employee_id = '$employee_id' ";
+        echo $query;
+        $resquery = mysqli_query($data, $query);
+    } else {
+        echo "somthing wrong";
+    }
+    ?>
+
     <div class="wrapper">
 
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -99,27 +113,22 @@ include('../database.php');
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="employee_list.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Employee List</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="employee_sched.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Schedules</p>
-                                    </a>
-                                </li>
-                            </ul>
+
                         </li>
 
                         <li class="nav-item">
-                            <a href="employee_positions.php" class="nav-link">
+                            <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Positions
+                                    Leave Type Master
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="leave_list.php" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>
+                                    Leave
                                 </p>
                             </a>
                         </li>
@@ -161,33 +170,66 @@ include('../database.php');
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
-                                    <thead>
-                                        <tr>
-                                            <th>Employee ID</th>
-                                            <th>Name</th>
-                                            <th>Leave Aprove</th>
-                                            <th>Leave Pending</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div align="right">
 
-                                        <tr>
+                                    <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>ID</th>
+                                                <th>Employee Name</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Description</th>
+                                                <th>Leave Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
 
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <?php
+                                            $sql = "SELECT leave.employee_id, leave.leave_from, leave.leave_to, leave.leave_description, leave.leave_status, user.name, user.id FROM `leave` LEFT JOIN `user` ON user.id = leave.employee_id";
+                                            $result1 = mysqli_query($data, $sql);
+                                            $i = 1;
+                                            while ($row = mysqli_fetch_array($result1)) {
 
-                                        ?>
-                                    </tbody>
-                                </table>
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $row['id']; ?></td>
+                                                    <td><?php echo $row['name'] . '(' . $row['employee_id'] . ')'; ?></td>
+                                                    <td><?php echo $row['leave_from']; ?></td>
+                                                    <td><?php echo $row['leave_to']; ?></td>
+                                                    <td><?php echo $row['leave_description']; ?></td>
+
+                                                    <td>
+                                                        <?php
+                                                        if ($row['leave_status'] == '0') {
+                                                            echo "Applied";
+                                                        }
+                                                        if ($row['leave_status'] == '1') {
+                                                            echo "Approved";
+                                                        }
+                                                        if ($row['leave_status'] == '2') {
+                                                            echo "Rejected";
+                                                        }
+                                                        ?>
+                                                        <select onchange="update_leave_status(<?php echo $row['employee_id']; ?>, this.options[this.selectedIndex].value)">
+                                                            <option value="">Update Status</option>
+                                                            <option value="1">Approved</option>
+                                                            <option value="2">Rejected</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                                $i++;
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </section>
         </div>
     </div>
@@ -196,20 +238,25 @@ include('../database.php');
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="dist/js/adminlte.min.js"></script>
-    <script src="dist/js/demo.js"></script>
+    <!-- <script src="dist/js/adminlte.min.js"></script>
+    <script src="dist/js/demo.js"></script> -->
     <script>
-        $(function() {
-            $("#example1").DataTable();
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
+        // $(function() {
+        //     $("#example1").DataTable();
+        //     $('#example2').DataTable({
+        //         "paging": true,
+        //         "lengthChange": false,
+        //         "searching": false,
+        //         "ordering": true,
+        //         "info": true,
+        //         "autoWidth": false,
+        //     });
+        // });
+    </script>
+    <script>
+        function update_leave_status(id, select_value) {
+            window.location.href = 'leave_list.php?employee_id=' + id + '&status=' + select_value;
+        }
     </script>
 </body>
 

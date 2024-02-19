@@ -1,5 +1,5 @@
-<?php
-include('conn.php');
+<!-- php
+include('database.php');
 
 extract($_REQUEST);
 
@@ -9,4 +9,4 @@ $result = mysqli_query($data, $query);
 echo $result;
 
 if (mysqli_num_rows($result) > 0) {
-}
+} -->

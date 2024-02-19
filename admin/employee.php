@@ -1,6 +1,9 @@
+<?php
+include('../database.php');
+
+?>
 <!DOCTYPE html>
 <html>
-
 
 <head>
     <meta charset="utf-8">
@@ -18,13 +21,38 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <script src="dist/js/1.js"></script>
-    <script src="dist/js/2.js"></script>
-    <script src="dist/js/3.js"></script>
 
+    <?php
+    include("header.php");
+    ?>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?php
+    if (isset($_POST['add_employee'])) {
+        // $id = $_POST['emp_id'];
+        $name = $_POST['emp_name'];
+        $pass = md5($_POST['emp_password']);
+        $email = $_POST['emp_email'];
+        $contact = $_POST['emp_contact'];
+
+        $query = "INSERT INTO user(name, email, password, mobile_number) VALUES ('$name','$email','$pass','$contact')";
+        $resquery = mysqli_query($data, $query);
+
+        echo '<script>
+             setTimeout(function() {
+                 Swal.fire({
+                     title: "Success !",
+                     text: "New Employee has been ADded!",
+                     type: "success"
+                   }).then(function() {
+                       window.location = "employee.php";
+                   });
+             }, 30);
+         </script>';
+    }
+
+    ?>
     <div class="wrapper">
 
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -123,7 +151,7 @@
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type
+                                    Leave Type Master
                                 </p>
                             </a>
                         </li>
@@ -167,8 +195,6 @@
                     </div>
                 </div>
             </div>
-
-
             <section class="content">
                 <div class="row">
                     <div class="col-12">
@@ -181,29 +207,35 @@
                                     <thead>
                                         <tr>
                                             <th>Employee ID</th>
-                                            <th>Photo</th>
+
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Schedule</th>
-                                            <th>Member Since</th>
+                                            <th>Password</th>
+                                            <th>contact</th>
                                             <th>Tools</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
 
+                                        $sql = " SELECT * FROM user ";
+                                        $result1 = mysqli_query($data, $sql);
+                                        while ($row = mysqli_fetch_array($result1)) {
 
-                                        <tr>
-                                            <td></td>
-                                            <td><img src="" style="width: 40px;height: 40px;"></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <button class="btn btn-success btn-flat emp_edit" id=""><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-danger btn-flat emp_delete" id=""><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $row['id']; ?></td>
+                                                <td><?php echo $row['name']; ?></td>
+                                                <td><?php echo $row['password']; ?></td>
+                                                <td><?php echo $row['mobile_number']; ?></td>
+
+                                                <td>
+                                                    <button class="btn btn-success btn-flat emp_edit" id=""><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-danger btn-flat emp_delete" id=""><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
 
                                     </tbody>
                                 </table>
@@ -233,95 +265,66 @@
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Employee Tag</label>
-                            <div class="col-sm-7">
-                                <input type="number" class="form-control" name="emp_tag" placeholder="Enter Card Tag" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Firstname</label>
+                            <label class="col-sm-3 col-form-label">Name</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="emp_name" placeholder="Enter First Name" required>
                             </div>
                         </div>
 
-
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Lastname</label>
+                            <label class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="emp_lastname" placeholder="Enter Last Name" required>
+                                <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-7">
+                                <input type="email" class="form-control" name="emp_email" placeholder="Enter Password" required>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Address</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="emp_address" placeholder="Enter Address" required>
-                            </div>
-                        </div>
-
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Contact Info</label>
+                            <label class="col-sm-3 col-form-label">Contact</label>
                             <div class="col-sm-7">
                                 <input type="number" class="form-control" name="emp_contact" placeholder="Enter Contact Number" required>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Gender</label>
+                            <label class="col-sm-3 col-form-label">Department</label>
                             <div class="col-sm-7">
-                                <select name="emp_gender" class="form-control" required>
+                                <select name="department" class="form-control" required>
                                     <option hidden> - Select -</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Prefer Not">Prefer Not to say</option>
+                                    <?php
+                                    $sql = "SELECT * FROM department";
+                                    $result = mysqli_query($data, $sql);
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                    ?>
+                                        <option value="<?php echo $row['id'];  ?>"><?php echo $row['department']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
-
-
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Position</label>
+                            <label class="col-sm-3 col-form-label">Admin</label>
                             <div class="col-sm-7">
-                                <select name="emp_position" class="form-control" required>
-                                    <option hidden> - Select -</option>
+                                <select name="department" class="form-control" required>
+                                    <option> yes</option>
 
-                                    <option value=""></option>
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Schedule</label>
-                            <div class="col-sm-7">
-                                <select name="emp_schedule" class="form-control" required>
-                                    <option hidden> - Select -</option>
-
-                                    <option value="">- </option>
+                                    <option> no</option>
 
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Photo</label>
-                            <div class="col-sm-7">
-                                <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
-
-                            </div>
-                        </div>
-
                 </div>
 
                 <div class="modal-footer justify-content-between">
@@ -392,7 +395,9 @@
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script>
 
-
+    <?php
+    include("footer.php");
+    ?>
 </body>
 
 </html>
