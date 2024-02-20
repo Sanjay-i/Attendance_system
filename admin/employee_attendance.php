@@ -115,7 +115,7 @@ include('../database.php');
                             <a href="department.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    department
+                                    Positions
                                 </p>
                             </a>
                         </li>
@@ -171,6 +171,7 @@ include('../database.php');
                                             <th>Name</th>
                                             <th>Time In</th>
                                             <th>Time Out</th>
+                                            <th>Total Hours</th>
                                             <th>Total Hours</th>
                                         </tr>
                                     </thead>
