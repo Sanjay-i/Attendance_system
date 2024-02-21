@@ -2,6 +2,10 @@
 include('../database.php');
 
 ?>
+<?php
+include('../database.php');
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -247,6 +251,7 @@ include('../database.php');
                                         <tr>
                                             <th>Employee ID</th>
 
+
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>contact</th>
@@ -313,14 +318,18 @@ include('../database.php');
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Password</label>
+                            <label class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-7">
+                                <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
                                 <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Email</label>
+                            <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-7">
+                                <input type="email" class="form-control" name="emp_email" placeholder="Enter Password" required>
                                 <input type="email" class="form-control" name="emp_email" placeholder="Enter Password" required>
                             </div>
                         </div>
@@ -328,6 +337,7 @@ include('../database.php');
 
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Contact</label>
                             <label class="col-sm-3 col-form-label">Contact</label>
                             <div class="col-sm-7">
                                 <input type="number" class="form-control" name="emp_contact" placeholder="Enter Contact Number" required>
