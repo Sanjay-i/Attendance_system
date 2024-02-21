@@ -57,7 +57,7 @@ include('../database.php');
                         <!------------------------- added  home menu in atttendance page ----------->
 
                         <form method="POST">
-                            <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -107,7 +107,7 @@ include('../database.php');
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type Master
+                                    Leave Type
                                 </p>
                             </a>
                         </li>
@@ -115,7 +115,7 @@ include('../database.php');
                             <a href="department.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Positions
+                                    department
                                 </p>
                             </a>
                         </li>
@@ -171,7 +171,6 @@ include('../database.php');
                                             <th>Name</th>
                                             <th>Time In</th>
                                             <th>Time Out</th>
-                                            <th>Total Hours</th>
                                             <th>Total Hours</th>
                                         </tr>
                                     </thead>

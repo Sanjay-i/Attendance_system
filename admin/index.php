@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include('../database.php');
 
 ?>
@@ -47,14 +47,47 @@ include('../database.php');
 
 <body class="hold-transition login-page">
     <?php
-    print_r($_POST);
+    if (isset($_POST['Sign_in'])) {
+        $email = $_POST['log_email'];
+        $password = md5($_POST['log_password']);
+
+        $query = "SELECT * FROM user WHERE email = '$email' and password = '$password'";
+        $resquery = mysqli_query($data, $query);
+        if ($row = $resquery->fetch_assoc()) {
+            if ($row['is_admin'] == 1) {
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['user_id'] = $row['id'];
+                header("Location: home.php");  //------> Redirect to admin home page
+            } elseif ($row['is_admin'] == 0) {
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['name'] = $row['name'];
+                header("Location: ../dashboard.php"); //-----> Redirect to user home page
+            }
+        } else {
+            echo '<script>
+                     setTimeout(function() {
+                         Swal.fire({
+                             title: "Failed !",
+                             text: "Useremail or Password is incorrect !",
+                             type: "error"
+                           }).then(function() {
+                               window.location = "index.php";
+                           });
+                     }, 30);
+                 </script>';
+        }
+    }
+
+    ?>
+    <!------------------------------------
+   
     if (isset($_POST['Sign_in'])) {
         $email = $_POST['log_email'];
         $password = md5($_POST['log_password']);
 
         $query = "SELECT * FROM user WHERE email = '$email' and password = '$password' and is_admin = 1";
         $resquery = mysqli_query($data, $query);
-        echo  $query;
         if (!$row = $resquery->fetch_assoc()) {
             echo '<script>
                      setTimeout(function() {
@@ -75,11 +108,11 @@ include('../database.php');
         }
     }
 
-    ?>
+    ?>-->
 
     <div class="login-box">
         <div class="login-logo">
-            <p class="bold">Admin Login</p>
+            <p class="bold">Login Page</p>
         </div>
         <!-- /.login-logo -->
         <div class="card">

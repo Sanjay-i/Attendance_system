@@ -43,7 +43,7 @@
 
                         <!----------------------------home page side menubare options ------------------------------->
                         <form method="POST">
-                            <a href="logout.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -91,7 +91,7 @@
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type Master
+                                    Leave Type
                                 </p>
                             </a>
                         </li>
@@ -145,12 +145,12 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-dark">
                                 <div class="inner">
-                                    <p>Employee / Staff</p>
+                                    <p>Employee </p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="employee.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
@@ -161,31 +161,10 @@
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="leave_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-dark">
-                                <div class="inner">
-                                    <p>On Time Today</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-dark">
-                                <div class="inner">
-                                    <p>Late Today</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <section class="col-lg-5 connectedSortable">

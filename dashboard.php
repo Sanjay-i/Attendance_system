@@ -200,7 +200,7 @@ if (isset($_SESSION['email'])) {
 
 <?php
 } else {
-    header('location:login.php');
+    header('location:admin/index.php');
 }
 
 ?>
