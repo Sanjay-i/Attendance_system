@@ -2,10 +2,6 @@
 include('../database.php');
 
 ?>
-<?php
-include('../database.php');
-
-?>
 <!DOCTYPE html>
 <html>
 
@@ -378,7 +374,7 @@ include('../database.php');
 
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                    <button type="submit" class="btn btn-primary btn-flat" name="update_user"><i class="fas fa-save"></i>Update</button>
+                    <button type="submit" class="btn btn-primary btn-flat" name="add_employee"><i class="fas fa-save"></i>Update</button>
                     </form>
                 </div>
             </div>
