@@ -2,6 +2,10 @@
 include('../database.php');
 
 ?>
+<?php
+include('../database.php');
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -134,6 +138,7 @@ include('../database.php');
 
                         <form method="POST">
                             <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -248,6 +253,7 @@ include('../database.php');
                                         <tr>
                                             <th>Employee ID</th>
 
+
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>contact</th>
@@ -266,11 +272,14 @@ include('../database.php');
                                                 <td><?php echo $row['id']; ?></td>
                                                 <td><?php echo $row['name']; ?></td>
                                                 <td><?php echo $row['email']; ?></td>
+                                                <td><?php echo $row['email']; ?></td>
                                                 <td><?php echo $row['mobile_number']; ?></td>
                                                 <td>
                                                     <button class="btn btn-success btn-flat emp_edit" data-id="<?php echo $row['id']; ?>"  id=""><i class="fas fa-edit"></i></button>
                                                     <button class="btn btn-danger btn-flat emp_delete" onclick=delete_leave(<?php echo $row['id']; ?>)><i class="fas fa-trash"></i></button>
                                                 </td>
+
+
 
 
                                             </tr>
@@ -369,10 +378,11 @@ include('../database.php');
 
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                    <button type="submit" class="btn btn-primary btn-flat" name="add_employee"><i class="fas fa-save"></i> Save</button>
+                    <button type="submit" class="btn btn-primary btn-flat" name="update_user"><i class="fas fa-save"></i>Update</button>
                     </form>
                 </div>
             </div>
+
 
             <!-- /.modal-content -->
         </div>
