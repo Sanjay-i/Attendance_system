@@ -6,7 +6,7 @@ include('../database.php');
 ?>
 <!DOCTYPE html>
 <html>
-
+<!----------------------------------user table data page ------------------------>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,10 +54,10 @@ include('../database.php');
                                 <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
                             </div>
                         </span>
-                        <!------------------------- added  home menu in atttendance page ----------->
+                        <!-------------------------  home menus in atttendance page ----------->
 
                         <form method="POST">
-                            <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -107,7 +107,7 @@ include('../database.php');
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type Master
+                                    Leave Type
                                 </p>
                             </a>
                         </li>
@@ -115,7 +115,7 @@ include('../database.php');
                             <a href="department.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Positions
+                                    department
                                 </p>
                             </a>
                         </li>
@@ -172,7 +172,6 @@ include('../database.php');
                                             <th>Time In</th>
                                             <th>Time Out</th>
                                             <th>Total Hours</th>
-                                            <th>Total Hours</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -190,8 +189,8 @@ include('../database.php');
 
                                                 <td><?php echo $row['user_id']; ?></td>
                                                 <td><?php echo $row['name']; ?></td>
-                                                <td><?php echo $row['check_in']; ?> <span class="float-right badge bg-success">On Time</span></td>
-                                                <td><?php echo $row['check_out']; ?></td>
+                                                <td><?php echo $row['check_in']; ?> </td>
+                                                <td><?php echo $row['check_out']; ?> </td>
                                                 <td><?php echo $row['total_hours']; ?></td>
                                             </tr>
                                         <?php

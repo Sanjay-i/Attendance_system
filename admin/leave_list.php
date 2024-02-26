@@ -6,6 +6,7 @@ include('../database.php');
 ?>
 <!DOCTYPE html>
 <html>
+<!-------------------------leave approval page ---------------->
 
 <head>
     <meta charset="utf-8">
@@ -28,14 +29,25 @@ include('../database.php');
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php
-    if (isset($_GET['employee_id'])) {
+    if (isset($_GET['leave_id'])) {
 
-        $employee_id = $_GET['employee_id'];
-        $leave_status = $_GET['status'];
+        $leave_id = $_GET['leave_id'];
 
-        $query = "UPDATE `leave` SET leave_status = '$leave_status' WHERE employee_id = '$employee_id' ";
-        echo $query;
-        $resquery = mysqli_query($data, $query);
+        if ($_GET['action'] == 'delete') {
+
+            
+
+            $sql = "DELETE FROM `leave` WHERE id = '$leave_id'";
+            $result = mysqli_query($data, $sql);
+        } else {
+
+
+            $leave_status = $_GET['status'];
+
+            $query = "UPDATE `leave` SET leave_status = '$leave_status' WHERE id = '$leave_id' ";
+            echo $query;
+            $resquery = mysqli_query($data, $query);
+        }
     } else {
         echo "somthing wrong";
     }
@@ -70,7 +82,7 @@ include('../database.php');
                         </span>
 
                         <form method="POST">
-                            <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -120,7 +132,7 @@ include('../database.php');
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type Master
+                                    Leave Type
                                 </p>
                             </a>
                         </li>
@@ -185,12 +197,13 @@ include('../database.php');
                                                 <th>To</th>
                                                 <th>Description</th>
                                                 <th>Leave Status</th>
+                                                <th>Tools</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
 
-                                            $sql = "SELECT leave.employee_id, leave.leave_from, leave.leave_to, leave.leave_description, leave.leave_status, user.name, user.id FROM `leave` LEFT JOIN `user` ON user.id = leave.employee_id";
+                                            $sql = "SELECT leave.id AS leave_id, leave.employee_id, leave.leave_from, leave.leave_to, leave.leave_description, leave.leave_status, user.name, user.id FROM `leave` LEFT JOIN `user` ON user.id = leave.employee_id";
                                             $result1 = mysqli_query($data, $sql);
                                             $i = 1;
                                             while ($row = mysqli_fetch_array($result1)) {
@@ -198,7 +211,7 @@ include('../database.php');
                                             ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <td><?php echo $row['id']; ?></td>
+                                                    <td><?php echo $row['leave_id']; ?></td>
                                                     <td><?php echo $row['name'] . '(' . $row['employee_id'] . ')'; ?></td>
                                                     <td><?php echo $row['leave_from']; ?></td>
                                                     <td><?php echo $row['leave_to']; ?></td>
@@ -216,12 +229,20 @@ include('../database.php');
                                                             echo "Rejected";
                                                         }
                                                         ?>
-                                                        <select onchange="update_leave_status(<?php echo $row['employee_id']; ?>, this.options[this.selectedIndex].value)">
+                                                        <select onchange="update_leave_status(<?php echo $row['leave_id']; ?>, this.options[this.selectedIndex].value)">
                                                             <option value="">Update Status</option>
                                                             <option value="1">Approved</option>
                                                             <option value="2">Rejected</option>
                                                         </select>
                                                     </td>
+
+                                                    <td>
+                                                        <!--   <button class="btn btn-success btn-flat emp_edit" id=""><i class="fas fa-edit"></i></button>  --->
+                                                        <button class="btn btn-danger btn-flat emp_delete" onclick=delete_leave(<?php echo $row['leave_id']; ?>)><i class="fas fa-trash"></i></button>
+                                                    </td>
+
+
+
                                                 </tr>
                                             <?php
                                                 $i++;
@@ -234,6 +255,8 @@ include('../database.php');
                         </div>
                     </div>
             </section>
+
+
         </div>
     </div>
 
@@ -258,7 +281,11 @@ include('../database.php');
     </script>
     <script>
         function update_leave_status(id, select_value) {
-            window.location.href = 'leave_list.php?employee_id=' + id + '&status=' + select_value;
+            window.location.href = 'leave_list.php?leave_id=' + id + '&status=' + select_value + '&action=update';
+        }
+
+        function delete_leave(id) {
+            window.location.href = 'leave_list.php?leave_id=' + id + '&action=delete';
         }
     </script>
 </body>

@@ -28,6 +28,54 @@ include('../database.php');
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <!---------- delete query in user table --------------->
+    <?php
+    if (isset($_GET['id'])) {
+
+        if ($_GET['action'] == 'delete') {
+
+            $emp_id = $_GET['id'];
+
+            $sql = "DELETE FROM `user` WHERE id = '$emp_id'";
+            $result = mysqli_query($data, $sql);
+        }
+    } else {
+        echo " fdf ";
+    }
+    ?>
+    <!------------------update query user table ----------->
+    <?php
+    if (isset($_POST['update_user'])) {
+
+        $name = $_POST['emp_name'];
+      
+        $email = $_POST['emp_email'];
+        $contact = $_POST['emp_contact'];
+        $is_admin = $_POST['is_admin'];
+        $user_id = $_POST['user_id'];
+
+        $sql = "UPDATE user SET name = '$name' ,email ='$email' ,mobile_number ='$contact', is_admin ='$is_admin' 
+        WHERE id = '$user_id'";
+        $result = mysqli_query($data, $sql);
+
+        echo '<script>
+             setTimeout(function() {
+                 Swal.fire({
+                     title: "Success !",
+                     text: "New Employee has been ADded!",
+                     type: "success"
+                   }).then(function() {
+                       window.location = "employee.php";
+                   });
+             }, 30);
+         </script>';
+    } else {
+        echo "update note success";
+    }
+
+
+    ?>
+<!-------------insert employees in user table ----------------->
     <?php
     if (isset($_POST['add_employee'])) {
         // $id = $_POST['emp_id'];
@@ -85,7 +133,7 @@ include('../database.php');
                         </span>
 
                         <form method="POST">
-                            <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -139,7 +187,7 @@ include('../database.php');
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type Master
+                                    Leave Type
                                 </p>
                             </a>
                         </li>
@@ -196,11 +244,12 @@ include('../database.php');
                                 </div><br>
                                 <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
+                        <!-------employee add and all data display page-------->                
                                         <tr>
                                             <th>Employee ID</th>
 
                                             <th>Name</th>
-                                            <th>Password</th>
+                                            <th>Email</th>
                                             <th>contact</th>
                                             <th>Tools</th>
                                         </tr>
@@ -216,13 +265,14 @@ include('../database.php');
                                             <tr>
                                                 <td><?php echo $row['id']; ?></td>
                                                 <td><?php echo $row['name']; ?></td>
-                                                <td><?php echo $row['password']; ?></td>
+                                                <td><?php echo $row['email']; ?></td>
                                                 <td><?php echo $row['mobile_number']; ?></td>
-
                                                 <td>
-                                                    <button class="btn btn-success btn-flat emp_edit" id=""><i class="fas fa-edit"></i></button>
-                                                    <button class="btn btn-danger btn-flat emp_delete" id=""><i class="fas fa-trash"></i></button>
+                                                    <button class="btn btn-success btn-flat emp_edit" data-id="<?php echo $row['id']; ?>"  id=""><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-danger btn-flat emp_delete" onclick=delete_leave(<?php echo $row['id']; ?>)><i class="fas fa-trash"></i></button>
                                                 </td>
+
+
                                             </tr>
                                         <?php
                                         }
@@ -253,8 +303,7 @@ include('../database.php');
 
                 <div class="modal-body">
                     <form method="POST" enctype="multipart/form-data">
-
-                        <!-- <div class="form-group row">
+                        <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Name</label>
                             <div class="col-sm-7">
@@ -324,58 +373,109 @@ include('../database.php');
                     </form>
                 </div>
             </div>
+
             <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-
-            <div id="emp_edit_modal" class="modal fade">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Editing...</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-
-
-                        <form method="POST">
-                            <div class="modal-body" id="emp_edit_details">
-                            </div>
-                            <div class="modal-body"></div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                                <button type="submit" class="btn btn-primary btn-flat" name="emp_update"><i class="fas fa-check"></i> Update</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
+        <!-- /.modal-dialog -->
+    </div>
 
+    <!------------- update user form ---------------------------------->
 
+    <div class="modal fade" id="modal-default-update">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-        <div id="emp_delete_modal" class="modal fade">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Deleting...</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <form method="POST">
-                        <div class="modal-body" id="emp_delete_details">
+                <div class="modal-body">
+                    <form method="POST" id="userForm" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="emp_name" name="emp_name" placeholder="Enter First Name" required>
+                            </div>
                         </div>
-                        <div class="modal-body"></div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                            <button type="submit" class="btn btn-danger btn-flat" name="emp_delete"><i class="fas fa-trash"></i> Delete</button>
+
+                        <!-- <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-7">
+                                <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-7">
+                                <input type="email" class="form-control" id="emp_email" name="emp_email" placeholder="Enter Password" required>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Contact</label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" id="emp_contact" name="emp_contact" placeholder="Enter Contact Number" required>
+                            </div>
+                        </div>
+                     <!--   <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Department</label>
+                            <div class="col-sm-7">
+                                <select id="emp_depart" name="department" class="form-control" required>
+                                    <option hidden> - Select -</option>
+                                    --php
+                                    $sql = "SELECT * FROM department";
+                                    $result = mysqli_query($data, $sql);
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                    ?>
+                                        <option value="?php echo $row['id'];  ?>">?php echo $row['department']; ?></option>
+                                   --php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>  --->
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <label class="col-sm-3 col-form-label">Admin</label>
+                            <div class="col-sm-7">
+                                <select id="is_admin" name="is_admin" class="form-control" required>
+                                    <option value="1"> yes</option>
+
+                                    <option value="0"> no</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="user_id" id="user_id" />
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                    <button type="submit" class="btn btn-primary btn-flat" name="update_user"><i class="fas fa-save"></i>Update</button>
                     </form>
                 </div>
             </div>
+
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
+    </div>
+    </div>
+
+
+
+
     </div>
 
 
@@ -385,6 +485,49 @@ include('../database.php');
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script>
+    <script>
+        function delete_leave(id) {
+            window.location.href = 'employee.php?id=' + id + '&action=delete';
+        }
+    </script>
+    <script>
+//<------- update user table condition ---------->    
+
+    $('.emp_edit').click(function() {
+        var id = $(this).data("id");
+        $.ajax({
+            url:'get_employee.php',
+            method:"POST",
+            data:{id:id},
+            dataType:"json",
+            success:function(data){  
+                var result = data;   
+                console.log(result);  
+                var item = result.record;      
+                $("#modal-default-update").on("shown.bs.modal", function () { 
+                    $('#userForm')[0].reset();
+                    
+                    $('#emp_name').val(item['name']);
+                    $('#emp_email').val(item['email']);
+                    $('#emp_contact').val(item['mobile_number']);
+                  
+                    $('#is_admin').val(item['is_admin']);    
+                    $('#user_id').val(item['id']);    
+                    
+
+                    $('.modal-title').html("<i class='fa fa-plus'></i> Edit User");
+                    $('#action').val('updateCategory');
+                    $('#save').val('Save');
+
+                }).modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });         
+            }
+        });
+    });
+    
+    </script>
 
     <?php
     include("footer.php");

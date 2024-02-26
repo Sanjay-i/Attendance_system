@@ -1,4 +1,4 @@
-<!--------- home page or  welcome page ------------->
+<!--------- employee home page or  welcome page ------------->
 <?php
 session_start();
 
@@ -153,6 +153,9 @@ if (isset($_SESSION['email'])) {
             <script src="plugins/datatables/jquery.dataTables.js"></script>
             <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
             <script>
+
+          //<---------------check in button after working functionalty --------->   
+
                 function checkIn() {
                     let dateTime = new Date().toDateString();
                     $.ajax({
@@ -160,7 +163,7 @@ if (isset($_SESSION['email'])) {
                         url: "attendance.php",
                         data: {
                             "user_id": <?php echo $_SESSION['user_id']; ?>,
-                            "check_in": true,
+                            "check_in": true,       
                         },
                         success: function(data) {
                             let decodeData = JSON.parse(data);
@@ -172,13 +175,13 @@ if (isset($_SESSION['email'])) {
                     });
                 }
 
-                //<!---------check-out button onclick function ------>  
+            //<---------------check out button after working functionalty --------->  
 
                 function checkOut() {
                     let dateTime = new Date().toDateString();
                     $.ajax({
                         type: "POST",
-                        url: "attendance.php",
+                        url: "attendance.php", //-----> going to attendance.php page 
                         data: {
                             "user_id": <?php echo $_SESSION['user_id']; ?>,
                             "check_in": false
@@ -200,7 +203,7 @@ if (isset($_SESSION['email'])) {
 
 <?php
 } else {
-    header('location:login.php');
+    header('location:admin/index.php');
 }
 
 ?>

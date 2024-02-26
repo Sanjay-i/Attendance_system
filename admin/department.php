@@ -27,6 +27,8 @@ include('../database.php');
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
+<!-------- add new departments ------------------------------>
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php
     if (isset($_POST['add_department'])) {
@@ -130,7 +132,7 @@ include('../database.php');
                             <a href="leave.php" class="nav-link">
                                 <i class="nav-icon fas fa-briefcase"></i>
                                 <p>
-                                    Leave Type Mater
+                                    Leave Type
                                 </p>
                             </a>
                         </li>

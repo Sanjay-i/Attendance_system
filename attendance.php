@@ -1,6 +1,6 @@
 
 <?php
-date_default_timezone_set('Asia/Kolkata');
+date_default_timezone_set('Asia/Kolkata');  // ----------> get indian time
 
 include('database.php');
 
@@ -10,7 +10,7 @@ if (isset($_POST['user_id'])) {
     $check_in = $_POST['check_in'];
     $currentDateTime = date('Y-m-d H:i:s');
 
-    // <--------------------------------select only current date and time ----------------->
+    // <--------------------------------check new time or old time ----------------->
 
     if ($check_in == 'true') {
         $query = "SELECT user_id FROM attendance WHERE user_id = '$user_id' AND DATE(check_in) = CURDATE()";
@@ -46,10 +46,10 @@ if (isset($_POST['user_id'])) {
             $check_in = new DateTime($getRow['check_in']);
             $check_out = new DateTime($currentDateTime);
 
-            // Calculate the difference between check-in and check-out times
+            //-----> Calculate the difference between check-in and check-out times
             $difference = date_diff($check_in, $check_out);
 
-            // Format the difference as hours and minutes
+            //-----> Format the difference as hours and minutes
             $totalHours = $difference->format('%h hours %i minutes %s seconds');
 
             $rquery = mysqli_query($data, "UPDATE attendance SET check_out = '$currentDateTime', total_hours = '$totalHours' WHERE user_id = '$user_id' ");

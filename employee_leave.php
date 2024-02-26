@@ -28,6 +28,8 @@ include('database.php');
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <?php
+  //<----------insert apply leave type into leave table ---------> 
+   
     if (isset($_POST['add_leave'])) {
 
         $leave_type_id = $_POST['leave_type_id'];
@@ -126,7 +128,7 @@ include('database.php');
             </div>
 
         </aside>
-        <!------------------------------------->
+    <!--------------------leave apply page---------------------->
 
         <div class="content-wrapper">
             <div class="content-header">
@@ -152,8 +154,11 @@ include('database.php');
                         <div class="card">
                             <div class="card-body">
                                 <div align="right">
-                                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> New</button>
+                                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i>Add Leave</button>
                                 </div><br>
+
+              <!---------- showing table in leave apply page ----------->
+
                                 <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
                                         <tr>

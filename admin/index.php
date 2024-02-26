@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include('../database.php');
 
 ?>
@@ -19,6 +19,7 @@ include('../database.php');
     <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
+    
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- DataTables -->
@@ -44,18 +45,28 @@ include('../database.php');
         }
     </style>
 </head>
+<!--------------------- login page condition ------------------->
 
 <body class="hold-transition login-page">
     <?php
-    print_r($_POST);
     if (isset($_POST['Sign_in'])) {
         $email = $_POST['log_email'];
         $password = md5($_POST['log_password']);
 
-        $query = "SELECT * FROM user WHERE email = '$email' and password = '$password' and is_admin = 1";
+        $query = "SELECT * FROM user WHERE email = '$email' and password = '$password'";
         $resquery = mysqli_query($data, $query);
-        echo  $query;
-        if (!$row = $resquery->fetch_assoc()) {
+        if ($row = $resquery->fetch_assoc()) {
+            if ($row['is_admin'] == 1) {
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['user_id'] = $row['id'];
+                header("Location: home.php");  //------> Redirect to admin home page
+            } elseif ($row['is_admin'] == 0) {
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['name'] = $row['name'];
+                header("Location: ../dashboard.php"); //-----> Redirect to Employee home page
+            }
+        } else {
             echo '<script>
                      setTimeout(function() {
                          Swal.fire({
@@ -67,21 +78,19 @@ include('../database.php');
                            });
                      }, 30);
                  </script>';
-        } else {
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['useremail'] = $row['useremail'];
-
-            header("Location: home.php");
         }
     }
 
     ?>
+   
 
     <div class="login-box">
         <div class="login-logo">
-            <p class="bold">Admin Login</p>
+            <p class="bold">Login Page</p>
         </div>
-        <!-- /.login-logo -->
+        
+    <!--------------- login page ------------------->
+
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
