@@ -2,6 +2,7 @@
 //<----------- connect with database --------------->
 
 include('../database.php');
+include("check_session.php");
 
 ?>
 <!DOCTYPE html>
@@ -49,12 +50,7 @@ include('../database.php');
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background: #1c2121;">
-                            <div class="image">
-                                <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                            </div>
-                        </span>
-                        <!-------------------------  home menus in atttendance page ----------->
+                        
 
                         <form method="POST">
                             <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
@@ -139,7 +135,7 @@ include('../database.php');
 
             <div class="content-header">
                 <div style="padding-top: 10px;">
-                    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee>
+                <!--    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee> -->
                 </div>
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -167,7 +163,7 @@ include('../database.php');
                                 <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
                                         <tr>
-                                            <th>Employee ID</th>
+                                         
                                             <th>Name</th>
                                             <th>Time In</th>
                                             <th>Time Out</th>
@@ -187,10 +183,10 @@ include('../database.php');
                                             <tr>
                                                 <!-------------------fetch the value in table rows ------------------->
 
-                                                <td><?php echo $row['user_id']; ?></td>
+                                              
                                                 <td><?php echo $row['name']; ?></td>
-                                                <td><?php echo $row['check_in']; ?> </td>
-                                                <td><?php echo $row['check_out']; ?> </td>
+                                                <td><?php echo date("d-m-Y   h:i:s ", strtotime($row['check_in'])); ?></td>
+                                                <td><?php echo date("d-m-Y   h:i:s ", strtotime($row['check_out'])); ?> </td>
                                                 <td><?php echo $row['total_hours']; ?></td>
                                             </tr>
                                         <?php
@@ -212,6 +208,19 @@ include('../database.php');
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script>
+    <script>
+         $(function() {
+             $("#example1").DataTable();
+             /* $('#example2').DataTable({
+                 "paging": true,
+                 "lengthChange": false,
+                 "searching": false,
+                 "ordering": true,
+                 "info": true,
+                 "autoWidth": false,
+             }); */
+         });
+    </script>
 
 </body>
 

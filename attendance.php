@@ -9,7 +9,6 @@ if (isset($_POST['user_id'])) {
     $user_id = $_POST['user_id'];
     $check_in = $_POST['check_in'];
     $currentDateTime = date('Y-m-d H:i:s');
-
     // <--------------------------------check new time or old time ----------------->
 
     if ($check_in == 'true') {

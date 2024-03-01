@@ -25,11 +25,31 @@ include('../database.php');
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!---delete  sweetealert ---->
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 </head>
 
-<!-------- add new departments ------------------------------>
+
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+ <!---------- delete query in user table --------------->
+ <?php
+    if (isset($_GET['id'])) {
+
+        if ($_GET['action'] == 'delete') {
+
+            $id = $_GET['id'];
+
+            $sql = "DELETE FROM `department` WHERE id = '$id'";
+            $result = mysqli_query($data, $sql);
+        }
+    } else {
+        echo " fdf ";
+    }
+    ?>
+
+<!----- add new departments-------------->
     <?php
     if (isset($_POST['add_department'])) {
 
@@ -43,14 +63,45 @@ include('../database.php');
              setTimeout(function() {
                  Swal.fire({
                      title: "Success !",
-                     text: "New Employee has been ADded!",
+                     text: "New department  Added!",
                      type: "success"
                    }).then(function() {
-                       window.location = "employee_list.php";
+                       
                    });
              }, 30);
          </script>';
     }
+
+    ?>
+     <!------------------update query user table ----------->
+     <?php
+    if (isset($_POST['update_department'])) {
+
+        $id =$_POST['id'];
+        $department = $_POST['department'];
+
+      
+       
+
+        $sql = "UPDATE department SET department = '$department' 
+        WHERE id = '$id'";
+        $result = mysqli_query($data, $sql);
+
+        echo '<script>
+             setTimeout(function() {
+                 Swal.fire({
+                     title: "Success !",
+                     text: "Updated department!",
+                     type: "success"
+                   }).then(function() {
+                       window.location = "department.php";
+                   });
+             }, 30);
+         </script>';
+    } else {
+        echo "update note success";
+    }
+
 
     ?>
 
@@ -76,14 +127,10 @@ include('../database.php');
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background: #1c2121;">
-                            <div class="image">
-                                <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                            </div>
-                        </span>
+                      
 
                         <form method="POST">
-                            <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
+                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
@@ -168,7 +215,7 @@ include('../database.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Department Master</h1>
+                            <h1 class="m-0 text-dark">Department </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -190,9 +237,10 @@ include('../database.php');
                                 <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
                                         <tr>
-                                            <th> ID</th>
-
+                                            <th>S.No</th>
+                                       <!--  <th> ID</th> -->
                                             <th>Department Name</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -200,15 +248,22 @@ include('../database.php');
                                         //         while ($row = mysqli_fetch_assoc($res)) {
                                         $sql = " SELECT * FROM department ";
                                         $result1 = mysqli_query($data, $sql);
+                                        $i = 1;
                                         while ($row = mysqli_fetch_array($result1)) {
 
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['id'] ?></td>
+                                                <td><?php echo $i; ?></td>
+                                            <!--<td>?php echo $row['id'] ?></td>-->
                                                 <td><?php echo $row['department'] ?></td>
+                                                <td>
+                                                    <button class="btn btn-success btn-flat department_edit" data-id="<?php echo $row['id'];  ?>"  id=""><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-danger btn-flat department_delete" onclick="delete_leave(<?php echo $row['id']; ?>)"><i class="fas fa-trash"></i></button>
+                                                </td>
 
                                             </tr>
                                         <?php
+                                         $i++;
                                         }
                                         ?>
                                     </tbody>
@@ -244,11 +299,51 @@ include('../database.php');
                                     </div>
                                 </div>
 
+                                </div>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal"><i class=""></i> Close</button>
+                                    <button type="submit" class="btn btn-primary btn-flat" name="add_department"><i class="fas fa-submit"></i>submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <!--------update---->
+            <div class="modal fade" id="modal-default-update">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Update Department</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
 
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                            <button type="submit" class="btn btn-primary btn-flat" name="add_department"><i class="fas fa-submit"></i>submit</button>
+                        <div class="modal-body">
+                            <form method="POST" id="DepartmentForm" enctype="multipart/form-data">
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-1 col-form-label"></label>
+                                    <label class="col-sm-3 col-form-label"> Update department</label>
+                                    <br>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="department" name="department" placeholder="Enter deaprtment" required>
+                                    </div>
+                                </div>
+
+                                </div>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal"><i class=""></i> Close</button>
+                                    <button type="submit" class="btn btn-primary btn-flat" name="update_department"><i class="fas fa-submit"></i>update</button>
+
+                                 <input type="hidden" name="id" id="id" />
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -265,6 +360,67 @@ include('../database.php');
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script>
+    <!--- delete -->
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        function update_leave_status(id, select_value) {
+            window.location.href = 'department.php?id=' + id + '&status=' + select_value + '&action=update';
+        }
+     //<-----delete -------->   
+     function delete_leave(id) { 
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                console.log(result)
+                if (result.value) {
+                    window.location.href = 'department.php?id=' + id + '&action=delete';
+                }
+            });
+            
+        }
+    
+    </script>
+
+    <!---update---->
+    <script>
+//<------- update user table condition ---------->    
+
+    $('.department_edit').click(function() {
+        var id = $(this).data("id");
+        $.ajax({
+            url:'get_employee.php',
+            method:"POST",
+            data:{department_id:id},
+            dataType:"json",
+            success:function(data){  
+                var result = data;   
+                console.log(result);  
+                var item = result.record;      
+                $("#modal-default-update").on("shown.bs.modal", function () { 
+                    $('#DepartmentForm')[0].reset();
+                    
+                    $('#department').val(item['department']);
+                    $('#id').val(item['id']); 
+                   
+                    $('.modal-title').html("<i ></i> Update department");
+                  
+                    $('#save').val('Save');
+
+                }).modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });         
+            }
+        });
+    });
+    
+    </script>
 
 </body>
 

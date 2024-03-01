@@ -10529,7 +10529,7 @@ body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .side
     transition: width 0.3s ease-in-out;
     width: 250px;
   }
-  .layout-sm-navbar-fixed .wrapper .brand-link {
+  .layout-sm-navbar-fixed .wrapper {
     overflow: hidden;
     position: fixed;
     top: 0;

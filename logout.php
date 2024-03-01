@@ -7,4 +7,4 @@ session_start();
 session_destroy();
 
 // echo "success";
-header('location:login.php');
+header('location: admin/index.php');

@@ -2,7 +2,7 @@
 //<----------- connect with database --------------->
 
 include('../database.php');
-
+include("check_session.php")
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,10 +23,32 @@ include('../database.php');
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!---delete  sweetealert ---->
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 </head>
-<!------------------insert leave type to leave_type table------------------------------------->
+
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+<!---------- delete query in leave table --------------->
+<?php
+    if (isset($_GET['id'])) {
+
+        if ($_GET['action'] == 'delete') {
+
+            $id = $_GET['id'];
+
+            $sql = "DELETE FROM `leave_type` WHERE id = '$id'";
+            $result = mysqli_query($data, $sql);
+        }
+    } else {
+        echo " fdf ";
+    }
+    ?>
+
+<!----------------------------->
+
+<!-----insert leave type to leave_type table -------->
     <?php
     if (isset($_POST['add_leave'])) {
 
@@ -40,6 +62,38 @@ include('../database.php');
     } else {
         echo "wrong";
     }
+
+    ?>
+<!---------------------------------------------->
+    <!------------------update  ----------->
+    <?php
+    if (isset($_POST['update_leave'])) {
+
+        $id =$_POST['id'];
+        $leave_type = $_POST['leave_type'];
+
+      
+       
+
+        $sql = "UPDATE leave_type SET leave_type = '$leave_type' 
+        WHERE id = '$id'";
+        $result = mysqli_query($data, $sql);
+
+        echo '<script>
+             setTimeout(function() {
+                 Swal.fire({
+                     title: "Success !",
+                     text: "Updated Leave Type!",
+                     type: "success"
+                   }).then(function() {
+                       window.location = "leave.php";
+                   });
+             }, 30);
+         </script>';
+    } else {
+        echo "update note success";
+    }
+
 
     ?>
 
@@ -65,11 +119,7 @@ include('../database.php');
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background: #1c2121;">
-                            <div class="image">
-                                <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                            </div>
-                        </span>
+                        
 
                         <form method="POST">
                             <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
@@ -174,14 +224,15 @@ include('../database.php');
                         <div class="card">
                             <div class="card-body">
                                 <div align="right">
-                                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> New</button>
+                                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i>Add</button>
                                 </div><br>
                                 <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>S.No</th>
+                                        <!--<th>ID</th> -->
                                             <th>Leave Type</th>
-                                            <!--<th>Tools</th> -->
+                                            <th>Action</th>
 
                                         </tr>
                                     </thead>
@@ -190,18 +241,24 @@ include('../database.php');
 
                                         $sql = " SELECT * FROM leave_type ";
                                         $result1 = mysqli_query($data, $sql);
+                                        $i = 1;
                                         while ($row = mysqli_fetch_array($result1)) {
 
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['id']; ?></td>
+                                                <td><?php echo $i; ?></td>
+                                         <!--   <td>?php echo $row['id']; ?></td> --->
                                                 <td><?php echo $row['leave_type']; ?></td>
-                                                <td></td>
+                                                <td>
+                                                    <button class="btn btn-success btn-flat leave_edit" data-id="<?php echo $row['id']; ?>"  id=""><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-danger btn-flat leave_delete"  onclick="delete_leave(<?php echo $row['id']; ?>)"><i class="fas fa-trash"></i></button>
+                                                </td>
 
                                             </tr>
-                                        <?php
-                                        }
-                                        ?>
+                                            <?php
+                                                $i++;
+                                            }
+                                            ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -223,8 +280,6 @@ include('../database.php');
 
                         <div class="modal-body">
                             <form method="POST" enctype="multipart/form-data">
-
-
                                 <div class="form-group row">
                                     <label class="col-sm-1 col-form-label"></label>
                                     <label class="col-sm-3 col-form-label"> Add Leave Type</label>
@@ -237,8 +292,46 @@ include('../database.php');
                         </div>
 
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                            <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal"><i class=""></i> Close</button>
                             <button type="submit" class="btn btn-primary btn-flat" name="add_leave"><i class="fas fa-submit"></i>submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <!-----update leave ------->
+
+            <div class="modal fade" id="modal-default-update">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Update Leave</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form method="POST" id="LeavetypeForm" enctype="multipart/form-data">
+                                <div class="form-group row">
+                                    <label class="col-sm-1 col-form-label"></label>
+                                    <label class="col-sm-3 col-form-label"> Update Leave Type</label>
+                                    <br>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="leave_type" name="leave_type" placeholder="Enter leave" required>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal"><i class=""></i> Close</button>
+                            <button type="submit" class="btn btn-primary btn-flat" name="update_leave"><i class="fas fa-submit"></i>Update</button>
+
+                            <input type="hidden" name="id" id="id" />
                             </form>
                         </div>
                     </div>
@@ -256,6 +349,62 @@ include('../database.php');
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script>
+    <!--- delete -->
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+  <!--------- delete confirm  concept -------------------------->
+    <script>
+        function delete_leave(id) { 
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                console.log(result)
+                if (result.value) {
+                    window.location.href = 'leave.php?id=' + id + '&action=delete';
+                }
+            });
+            
+        }
+    
+    </script>
+    <script>
+//<------- update  leave type condition ---------->    
+
+    $('.leave_edit').click(function() {
+        var id = $(this).data("id");
+        $.ajax({
+            url:'get_employee.php',
+            method:"POST",
+            data:{leavetype_id:id},
+            dataType:"json",
+            success:function(data){  
+                var result = data;   
+                console.log(result);  
+                var item = result.record;      
+                $("#modal-default-update").on("shown.bs.modal", function () { 
+                    $('#LeavetypeForm')[0].reset();
+                    
+                    $('#leave_type').val(item['leave_type']);
+                    $('#id').val(item['id']);    
+                    
+
+                    $('.modal-title').html("<i ></i> Update Leave");
+                  
+                    $('#save').val('Save');
+
+                }).modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });         
+            }
+        });
+    });
+    
+    </script>
 
 </body>
 

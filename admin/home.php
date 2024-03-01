@@ -11,7 +11,9 @@
 
     <!------------------- added header portion ---------------------->
     <?php
+
     include("header.php");
+    include("check_session.php");
     ?>
 </head>
 
@@ -35,11 +37,11 @@
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background:#222d32;">
+                      <!--  <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background:#222d32;">
                             <div class="image">
                                 <img src="" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
                             </div>
-                        </span>
+                        </span> -->
 
                         <!----------------------------home page side menubare options ------------------------------->
                         <form method="POST">
@@ -51,10 +53,11 @@
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: #222d32;">
 
-            <a href="" class="brand-link">
-                <img src="dist\css\js\img\685933.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
-                <span class="brand-text font-weight-light">Employ Attendance</span>
-            </a>
+        <a href="" class="brand-link">
+            <img src="dist\css\js\img\685933.jpg" alt="AdminLTE Logo" class="brand-image rounded-circle elevation-3">
+            <span class="brand-text font-weight-light">Employ Attendance</span>
+        </a>
+
 
             <div class="sidebar">
                 <nav class="mt-2">
@@ -116,11 +119,11 @@
                 </nav>
             </div>
         </aside>
-        <!---------------------------right side link options ----------------------------------------->
+        <!---------------------------right side options ----------------------------------------->
         <div class="content-wrapper">
             <div class="content-header">
                 <div style="padding-top: 10px;">
-                    <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee>
+          <!--          <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee> --->
                 </div>
                 <div class="container-fluid">
                     <div class="row mb-2">

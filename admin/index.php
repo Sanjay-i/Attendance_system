@@ -18,6 +18,7 @@ include('../database.php');
     <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 
     
     <!-- Ionicons -->
@@ -28,9 +29,6 @@ include('../database.php');
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <script src="dist/js/1.js"></script>
-    <script src="dist/js/2.js"></script>
-    <script src="dist/js/3.js"></script>
     <style type="text/css">
         .mt20 {
             margin-top: 20px;
@@ -43,6 +41,13 @@ include('../database.php');
         .bold {
             font-weight: bold;
         }
+        /* .brand-link .brand-image{
+            width: 70px;
+            height: 70px;
+            max-height: initial;
+            object-fit: cover;
+            float: none;
+        } */
     </style>
 </head>
 <!--------------------- login page condition ------------------->
@@ -57,10 +62,12 @@ include('../database.php');
         $resquery = mysqli_query($data, $query);
         if ($row = $resquery->fetch_assoc()) {
             if ($row['is_admin'] == 1) {
+                $_SESSION['is_admin'] = $row['is_admin'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['user_id'] = $row['id'];
                 header("Location: home.php");  //------> Redirect to admin home page
             } elseif ($row['is_admin'] == 0) {
+                $_SESSION['is_admin'] = $row['is_admin'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['name'] = $row['name'];
@@ -127,8 +134,6 @@ include('../database.php');
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="dist/js/adminlte.min.js"></script>
-    <script src="dist/js/demo.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
     <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
     <script src="plugins/moment/moment.min.js"></script>
@@ -137,6 +142,7 @@ include('../database.php');
     <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
     <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
         var interval = setInterval(function() {
@@ -145,6 +151,7 @@ include('../database.php');
             $('#time').html(momentNow.format('hh:mm:ss A'));
         }, 100);
     </script>
+    
 
 </body>
 

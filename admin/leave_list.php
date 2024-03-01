@@ -2,7 +2,7 @@
 //<----------- connect with database --------------->
 
 include('../database.php');
-
+include("check_session.php")
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,8 @@ include('../database.php');
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!---delete  sweetealert ---->
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 
 </head>
 
@@ -75,11 +77,7 @@ include('../database.php');
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background: #1c2121;">
-                            <div class="image">
-                                <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                            </div>
-                        </span>
+                       
 
                         <form method="POST">
                             <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
@@ -118,7 +116,7 @@ include('../database.php');
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="employee.php" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Employees
@@ -126,7 +124,7 @@ include('../database.php');
                                 </p>
                             </a>
 
-                        </li>
+                        <li class="nav-item">
 
                         <li class="nav-item">
                             <a href="leave.php" class="nav-link">
@@ -191,13 +189,13 @@ include('../database.php');
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>ID</th>
-                                                <th>Employee Name</th>
+                                        <!--    <th>ID</th> -->
+                                                <th>Name</th>
                                                 <th>From</th>
                                                 <th>To</th>
                                                 <th>Description</th>
                                                 <th>Leave Status</th>
-                                                <th>Tools</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -211,8 +209,9 @@ include('../database.php');
                                             ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <td><?php echo $row['leave_id']; ?></td>
-                                                    <td><?php echo $row['name'] . '(' . $row['employee_id'] . ')'; ?></td>
+                                             <!--   <td>?php echo $row['leave_id']; ?></td> -->
+                                             <!--   <td>?php echo $row['name'] . '(' . $row['employee_id'] . ')'; ?></td>--->
+                                                    <td><?php echo $row['name']; ?></td>
                                                     <td><?php echo $row['leave_from']; ?></td>
                                                     <td><?php echo $row['leave_to']; ?></td>
                                                     <td><?php echo $row['leave_description']; ?></td>
@@ -264,29 +263,45 @@ include('../database.php');
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+     <!--- delete -->
+     <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- <script src="dist/js/adminlte.min.js"></script>
     <script src="dist/js/demo.js"></script> -->
     <script>
-        // $(function() {
-        //     $("#example1").DataTable();
-        //     $('#example2').DataTable({
-        //         "paging": true,
-        //         "lengthChange": false,
-        //         "searching": false,
-        //         "ordering": true,
-        //         "info": true,
-        //         "autoWidth": false,
-        //     });
-        // });
+         $(function() {
+             $("#example1").DataTable();
+             /* $('#example2').DataTable({
+                 "paging": true,
+                 "lengthChange": false,
+                 "searching": false,
+                 "ordering": true,
+                 "info": true,
+                 "autoWidth": false,
+             }); */
+         });
     </script>
     <script>
         function update_leave_status(id, select_value) {
             window.location.href = 'leave_list.php?leave_id=' + id + '&status=' + select_value + '&action=update';
         }
-
-        function delete_leave(id) {
-            window.location.href = 'leave_list.php?leave_id=' + id + '&action=delete';
+     //<-----delete -------->   
+        function delete_leave(id) { 
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                console.log(result)
+                if (result.value) {
+                    window.location.href = 'leave_list.php?leave_id=' + id + '&action=delete';
+                }
+            });
+            
         }
+    
     </script>
 </body>
 

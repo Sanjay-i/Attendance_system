@@ -55,7 +55,7 @@
     font-size: 20px;
     background-color: black;
     border: 1px solid black;
-    color: #fff;
+    color: #ffffff;
     cursor: pointer;
 }
 
@@ -74,8 +74,8 @@
 }
 
 #btn {
-    color: white;
-    background-color: rgb(105, 15, 190);
+    color: rgb(178, 243, 93);
+    background-color: red;
     padding: 10px;
     font-size: large;
     border-radius: 10px;
@@ -87,3 +87,12 @@
         padding: 40px;
     }
 }
+
+  /*  .brand-link .brand-image{
+            width: 70px !important;
+            height: 70px !important;
+            max-height: initial !important;
+            object-fit: cover;
+            float: none !important;
+        }
+*/

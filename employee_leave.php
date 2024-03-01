@@ -46,7 +46,7 @@ include('database.php');
              setTimeout(function() {
                  Swal.fire({
                      title: "Success !",
-                     text: "New Employee has been ADded!",
+                     text: "Leave Applyed!",
                      type: "success"
                    }).then(function() {
                        window.location = "employee_leave.php";
@@ -94,10 +94,14 @@ include('database.php');
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: #222d32;">
 
-            <a href="home.php" class="brand-link">
-                <img src="dist\css\js\img\685933.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
-                <span class="brand-text font-weight-light">Employ Attendance</span>
-            </a>
+        <a href="" class="brand-link">
+                    <img src="dist\css\js\img\685933.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+                    <span class="brand-text font-weight-light">
+                        <br>
+                  <!--  <div>id:?= $_SESSION['user_id'] ?></div> -->
+                        <div>Email:<?= $_SESSION['email'] ?></div>
+                    </span>
+                </a>
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-flat nav-legacy nav-compact" data-widget="treeview" role="menu" data-accordion="false">
@@ -112,14 +116,14 @@ include('database.php');
                             </a>
                         </li>
 
-                        <li class="nav-item active">
-                            <a href="employee_leave.php" class="nav-link active">
-                                <i class="nav-icon far fa-calendar-alt"></i>
-                                <p>
-                                    Leave
-                                </p>
-                            </a>
-                        </li>
+                        <li class="nav-item">
+                                <a href="employee_leave.php" class="nav-link">
+                                    <i class="nav-icon fas fa-briefcase"></i>
+                                    <p>
+                                        Leave
+                                    </p>
+                                </a>
+                            </li>
 
 
                     </ul>
@@ -162,7 +166,7 @@ include('database.php');
                                 <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                     
                                             <th>From</th>
                                             <th>To</th>
                                             <th>Description</th>
@@ -178,7 +182,7 @@ include('database.php');
 
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['id']; ?></td>
+                                          
                                                 <td><?php echo $row['leave_from']; ?></td>
                                                 <td><?php echo $row['leave_to']; ?></td>
                                                 <td><?php echo $row['leave_description']; ?></td>
@@ -208,80 +212,69 @@ include('database.php');
             </section>
 
             <!---------------------------------------add leave employee ------------------>
+<!------------------------------------------------------------------------------------->
+                <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Leave</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 
-            <div class="modal fade" id="modal-default">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Leave</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
                             <form method="POST" enctype="multipart/form-data">
-
-                                <div class="form-group row">
-                                    <label class="col-sm-1 col-form-label"></label>
-                                    <label class="col-sm-3 col-form-label">Leave_Type</label>
-                                    <div class="col-sm-7">
-                                        <select name="leave_type_id" class="form-control" required>
-                                            <option hidden>Select Leave -</option>
-                                            <?php
-                                            $sql = "SELECT * FROM leave_type";
-                                            $result = mysqli_query($data, $sql);
-                                            while ($row = mysqli_fetch_array($result)) {
-
-                                            ?>
-                                                <option value="<?php echo $row['id'];  ?>"><?php echo $row['leave_type']; ?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
+                                <div class="modal-body">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Leave Type</label>
+                                        <div class="col-sm-9">
+                                            <select name="leave_type_id" class="form-control" required>
+                                                <option hidden>Select Leave -</option>
+                                                <?php
+                                                $sql = "SELECT * FROM leave_type";
+                                                $result = mysqli_query($data, $sql);
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                ?>
+                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['leave_type']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-1 col-form-label"></label>
                                         <label class="col-sm-3 col-form-label">From Date</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-9">
                                             <input type="date" class="form-control" name="leave_from" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-1 col-form-label"></label>
                                         <label class="col-sm-3 col-form-label">To date</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-9">
                                             <input type="date" class="form-control" name="leave_to" required>
                                         </div>
                                     </div>
-                                    <br>
-                                    <br>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-1 col-form-label"></label>
                                         <label class="col-sm-3 col-form-label">Leave Description</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-9">
                                             <input type="text" class="form-control" name="leave_description" required>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                                    <button type="submit" class="btn btn-primary btn-flat" name="add_leave"><i class="fas fa-save"></i>Submit</button>
+                                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i ></i> Close</button>
+                                    <button type="submit" class="btn btn-primary btn-flat" name="add_leave"><i></i> Submit</button>
+                                </div>
                             </form>
                         </div>
+                        <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-content -->
+                    <!-- /.modal-dialog -->
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
 
 
         </div>

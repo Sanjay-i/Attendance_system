@@ -1,5 +1,6 @@
 <?php
 include('../database.php');
+include("check_session.php");
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +22,8 @@ include('../database.php');
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+    <!---delete  sweetealert ---->
+    <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
     <?php
     include("header.php");
     ?>
@@ -62,7 +64,7 @@ include('../database.php');
              setTimeout(function() {
                  Swal.fire({
                      title: "Success !",
-                     text: "New Employee has been ADded!",
+                     text: "updated Employee!",
                      type: "success"
                    }).then(function() {
                        window.location = "employee.php";
@@ -92,7 +94,7 @@ include('../database.php');
              setTimeout(function() {
                  Swal.fire({
                      title: "Success !",
-                     text: "New Employee has been ADded!",
+                     text: "New Employee has been Added!",
                      type: "success"
                    }).then(function() {
                        window.location = "employee.php";
@@ -119,26 +121,19 @@ include('../database.php');
             </form>
 
             <ul class="navbar-nav ml-auto">
-
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="fas fa-user"></i>
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background:#222d32;">
-                            <div class="image">
-                                <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                            </div>
-                        </span>
+                      
 
                         <form method="POST">
-                            <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                             <a href="index.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
                         </form>
                     </div>
                 </li>
-
             </ul>
         </nav>
 
@@ -241,19 +236,17 @@ include('../database.php');
                         <div class="card">
                             <div class="card-body">
                                 <div align="right">
-                                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> New</button>
+                                    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i>Add</button>
                                 </div><br>
-                                <table id="example1" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
+                                <table id="emp_id" class="table table-bordered dataTable no-footer" role="grid" aria-describedby="example1_info">
                                     <thead>
                         <!-------employee add and all data display page-------->                
                                         <tr>
-                                            <th>Employee ID</th>
-
-
+                                            <th>S.No</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>contact</th>
-                                            <th>Tools</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -261,18 +254,19 @@ include('../database.php');
 
                                         $sql = " SELECT * FROM user ";
                                         $result1 = mysqli_query($data, $sql);
+                                        $i=1;
                                         while ($row = mysqli_fetch_array($result1)) {
 
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['id']; ?></td>
+                                                <td><?php echo $i; ?></td>
+                                              
                                                 <td><?php echo $row['name']; ?></td>
-                                                <td><?php echo $row['email']; ?></td>
                                                 <td><?php echo $row['email']; ?></td>
                                                 <td><?php echo $row['mobile_number']; ?></td>
                                                 <td>
                                                     <button class="btn btn-success btn-flat emp_edit" data-id="<?php echo $row['id']; ?>"  id=""><i class="fas fa-edit"></i></button>
-                                                    <button class="btn btn-danger btn-flat emp_delete" onclick=delete_leave(<?php echo $row['id']; ?>)><i class="fas fa-trash"></i></button>
+                                                    <button class="btn btn-danger btn-flat emp_delete"  onclick="delete_leave(<?php echo $row['id']; ?>)"><i class="fas fa-trash"></i></button>
                                                 </td>
 
 
@@ -280,6 +274,7 @@ include('../database.php');
 
                                             </tr>
                                         <?php
+                                        $i++;
                                         }
                                         ?>
 
@@ -373,8 +368,8 @@ include('../database.php');
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                    <button type="submit" class="btn btn-primary btn-flat" name="add_employee"><i class="fas fa-save"></i>Update</button>
+                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal"><i class=""></i> Close</button>
+                    <button type="submit" class="btn btn-primary btn-flat" name="add_employee"><i class=""></i>Save</button>
                     </form>
                 </div>
             </div>
@@ -407,14 +402,6 @@ include('../database.php');
                             </div>
                         </div>
 
-                        <!-- <div class="form-group row">
-                            <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-7">
-                                <input type="password" class="form-control" name="emp_password" placeholder="Enter Password" required>
-                            </div>
-                        </div> -->
-
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Email</label>
@@ -431,25 +418,7 @@ include('../database.php');
                                 <input type="number" class="form-control" id="emp_contact" name="emp_contact" placeholder="Enter Contact Number" required>
                             </div>
                         </div>
-                     <!--   <div class="form-group row">
-                            <label class="col-sm-1 col-form-label"></label>
-                            <label class="col-sm-3 col-form-label">Department</label>
-                            <div class="col-sm-7">
-                                <select id="emp_depart" name="department" class="form-control" required>
-                                    <option hidden> - Select -</option>
-                                    --php
-                                    $sql = "SELECT * FROM department";
-                                    $result = mysqli_query($data, $sql);
-                                    while ($row = mysqli_fetch_array($result)) {
-
-                                    ?>
-                                        <option value="?php echo $row['id'];  ?>">?php echo $row['department']; ?></option>
-                                   --php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>  --->
+                    
                         <div class="form-group row">
                             <label class="col-sm-1 col-form-label"></label>
                             <label class="col-sm-3 col-form-label">Admin</label>
@@ -467,8 +436,8 @@ include('../database.php');
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                    <button type="submit" class="btn btn-primary btn-flat" name="update_user"><i class="fas fa-save"></i>Update</button>
+                    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal"><i class=""></i> Close</button>
+                    <button type="submit" class="btn btn-primary btn-flat" name="update_user"><i class=""></i>Update</button>
                     </form>
                 </div>
             </div>
@@ -489,12 +458,28 @@ include('../database.php');
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="dist/js/adminlte.min.js"></script>
-    <script src="dist/js/demo.js"></script>
+
+    <!--- delete -->
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+  <!--------- delete confirm  concept -------------------------->
     <script>
-        function delete_leave(id) {
-            window.location.href = 'employee.php?id=' + id + '&action=delete';
+        function delete_leave(id) { 
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                console.log(result)
+                if (result.value) {
+                    window.location.href = 'employee.php?id=' + id + '&action=delete';
+                }
+            });
+            
         }
+    
     </script>
     <script>
 //<------- update user table condition ---------->    
@@ -521,8 +506,8 @@ include('../database.php');
                     $('#user_id').val(item['id']);    
                     
 
-                    $('.modal-title').html("<i class='fa fa-plus'></i> Edit User");
-                    $('#action').val('updateCategory');
+                    $('.modal-title').html("<i ></i> Update User");
+                  
                     $('#save').val('Save');
 
                 }).modal({
@@ -535,8 +520,22 @@ include('../database.php');
     
     </script>
 
+    <script>
+            $(function() {
+                $("#emp_id").DataTable();
+                /* $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                }); */
+            });
+        </script>
+
     <?php
-    include("footer.php");
+    // include("footer.php");
     ?>
 </body>
 

@@ -1,8 +1,8 @@
 <!--------- employee home page or  welcome page ------------->
-<?php
-session_start();
 
-// print_r($_SESSION);
+<?php
+// session_start();
+include("check_session.php");
 if (isset($_SESSION['email'])) {
     include('database.php');
 
@@ -55,12 +55,7 @@ if (isset($_SESSION['email'])) {
                             <span class="hidden-xs"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background:#222d32;">
-                                <div class="image">
-                                    <img src="" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                                </div>
-                            </span>
-
+                            
                             <!----------------------------home page side menubare options ------------------------------->
                             <form method="POST">
                                 <a href="logout.php"> <button type="button" name="logout" class="dropdown-item dropdown-footer">Logout</button></a>
@@ -74,8 +69,9 @@ if (isset($_SESSION['email'])) {
                 <a href="" class="brand-link">
                     <img src="dist\css\js\img\685933.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
                     <span class="brand-text font-weight-light">
-                        <div>id:<?= $_SESSION['user_id'] ?></div>
-                        <div>name:<?= $_SESSION['email'] ?></div>
+                        <br>
+                  <!--  <div>id:?= $_SESSION['user_id'] ?></div> -->
+                        <div>Email:<?= $_SESSION['email'] ?></div>
                     </span>
                 </a>
 
@@ -108,7 +104,7 @@ if (isset($_SESSION['email'])) {
             <div class="content-wrapper">
                 <div class="content-header">
                     <div style="padding-top: 10px;">
-                        <marquee onMouseOver="this.stop()" onMouseOut="this.start()"> .</marquee>
+                    <!-- <marquee onMouseOver="this.stop()" onMouseOut="this.start()"></marquee> -->
                     </div>
                     <div class="container-fluid">
                         <div class="row mb-2">
@@ -122,23 +118,63 @@ if (isset($_SESSION['email'])) {
                                 </ol>
                             </div>
 
-                            <div class="container">
+                            <!-- <div class="container">
                                 <div class="login">
                                     <div class="profile">
                                         <div><button onclick=checkIn() class="check-in-btn">Check_in </button></div>
-                                        <span id="checkin-time"> <?= $checkInTime; ?> </span>
+                                        <span id="checkin-time"> ?= $checkInTime; ?> </span>
                                         <div><button onclick=checkOut() class="check-out-btn">Check_out </button></div>
-                                        <span id="checkout-time"> <?= $checkOutTime != '0000-00-00 00:00:00' ? $checkOutTime : ''; ?> </span>
+                                        <span id="checkout-time"> ?= $checkOutTime != '0000-00-00 00:00:00' ? $checkOutTime : ''; ?> </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                         </div>
                     </div>
                 </div>
 
-                <!------------ display the home page options like status and total employee,on time ---------------------->
+                
+                 <!------------ display the home page options check in check out ---------------------->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                    <!-- <div class="col-lg-3 col-6">
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                <p><button onclick=checkIn() class="check-in-btn">Checkfhf In </button> </p>
+                                </div>
+                                
+                                <a href="" class="small-box-footer">?= $checkInTime; ?></a>
+                            </div>
+                        </div> -->
+
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                    <p><button onclick=checkIn() class="check-in-btn">Check In </button> </p>
+                                </div>
+                                
+                                <span id="checkin-time" class="small-box-footer"> <?= $checkInTime; ?> </span> <!--<a href="" class="small-box-footer"><span id="checkin-time"> ?= $checkInTime; ?> </span> <i class="fas fa-arrow-circle-right"></i></a>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-dark">
+                                <div class="inner">
+                                    <p><button onclick=checkOut() class="check-out-btn">Check Out </button></p>
+                                </div>
+                                
+                                <span id="checkout-time" class="small-box-footer"> <?= $checkOutTime != '0000-00-00 00:00:00' ? $checkOutTime : ''; ?> </span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <section class="col-lg-5 connectedSortable">
+                        </section>
+                    </div>
+                </div>
+            </section>
 
             </div>
             <div>
