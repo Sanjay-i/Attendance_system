@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Attrndance | Home page </title>
+    <title>Admin | Home page </title>
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 
     <!------------------- added header portion ---------------------->

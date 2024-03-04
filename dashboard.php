@@ -154,9 +154,8 @@ if (isset($_SESSION['email'])) {
                             <div class="small-box bg-dark">
                                 <div class="inner">
                                     <p><button onclick=checkIn() class="check-in-btn">Check In </button> </p>
-                                </div>
-                                
-                                <span id="checkin-time" class="small-box-footer"> <?= $checkInTime; ?> </span> <!--<a href="" class="small-box-footer"><span id="checkin-time"> ?= $checkInTime; ?> </span> <i class="fas fa-arrow-circle-right"></i></a>-->
+                                </div>                                        
+                                <span id="checkin-time" class="small-box-footer"> <?= date("d-m-Y   h:i:s ", strtotime($checkInTime)); ?> </span> <!--<a href="" class="small-box-footer"><span id="checkin-time"> ?= $checkInTime; ?> </span> <i class="fas fa-arrow-circle-right"></i></a>-->
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
@@ -165,9 +164,9 @@ if (isset($_SESSION['email'])) {
                                     <p><button onclick=checkOut() class="check-out-btn">Check Out </button></p>
                                 </div>
                                 
-                                <span id="checkout-time" class="small-box-footer"> <?= $checkOutTime != '0000-00-00 00:00:00' ? $checkOutTime : ''; ?> </span>
+                                <span id="checkout-time" class="small-box-footer"> <?= $checkOutTime != '0000-00-00 00:00:00' ?  date("d-m-Y   h:i:s ", strtotime($checkOutTime)): ''; ?> </span>
                         </div>
-
+                       
                     </div>
                     <div class="row">
                         <section class="col-lg-5 connectedSortable">
@@ -183,8 +182,12 @@ if (isset($_SESSION['email'])) {
             </div>
             <!------------------ added footer portion --------------------->
             <?php
-            include("footer.php");
+            // include("footer.php");
             ?>
+            <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+           <!--  <script src="plugins/datatables/jquery.dataTables.js"></script>
+            <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script> -->
+            <script src="plugins/jquery/jquery.min.js"></script>
             <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="plugins/datatables/jquery.dataTables.js"></script>
             <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

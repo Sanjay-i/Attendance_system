@@ -212,10 +212,10 @@ include("check_session.php")
                                              <!--   <td>?php echo $row['leave_id']; ?></td> -->
                                              <!--   <td>?php echo $row['name'] . '(' . $row['employee_id'] . ')'; ?></td>--->
                                                     <td><?php echo $row['name']; ?></td>
-                                                    <td><?php echo $row['leave_from']; ?></td>
-                                                    <td><?php echo $row['leave_to']; ?></td>
+                                                    <td><?php echo date("d-m-Y  ", strtotime($row['leave_from'])); ?></td>
+                                                    <td><?php echo date("d-m-Y  ", strtotime($row['leave_to'])); ?></td>
                                                     <td><?php echo $row['leave_description']; ?></td>
-
+                                                    
                                                     <td>
                                                         <?php
                                                         if ($row['leave_status'] == '0') {

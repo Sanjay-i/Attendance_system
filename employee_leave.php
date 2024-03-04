@@ -79,11 +79,7 @@ include('database.php');
                         <span class="hidden-xs"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header" style="max-height: 150px; overflow:hidden; background: #1c2121;">
-                            <div class="image">
-                                <img src="dist/img/me.jpg" style="border-radius: 50%;width: 100x;height: 100px;" alt="User Image">
-                            </div>
-                        </span>
+                        
 
                         <form method="POST">
                             <button type="submit" name="logout" class="dropdown-item dropdown-footer">Logout</a>
@@ -183,10 +179,10 @@ include('database.php');
                                         ?>
                                             <tr>
                                           
-                                                <td><?php echo $row['leave_from']; ?></td>
-                                                <td><?php echo $row['leave_to']; ?></td>
+                                                <td><?php echo date("d-m-Y   ", strtotime($row['leave_from'])); ?></td>
+                                                <td><?php echo date("d-m-Y  ", strtotime($row['leave_to'])); ?></td>
                                                 <td><?php echo $row['leave_description']; ?></td>
-
+                                                
                                                 <td>
                                                     <?php
                                                     if ($row['leave_status'] == 0) {

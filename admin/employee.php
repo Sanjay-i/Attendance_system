@@ -94,7 +94,7 @@ include("check_session.php");
              setTimeout(function() {
                  Swal.fire({
                      title: "Success !",
-                     text: "New Employee has been Added!",
+                     text: "New Employee  Added!",
                      type: "success"
                    }).then(function() {
                        window.location = "employee.php";
